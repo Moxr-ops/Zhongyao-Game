@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cloud
+  m_Controller: {fileID: 9100000, guid: dcd0d02b110d07c4691eac1394c165e8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9a0f3e108f106474c8cee711029326aa, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5123c50883659fc4f9d463e8f9636de6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a2a3e1d36d16782449a1d7345744c7db, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ce0329502c571f146a4350f9a9055ec2, type: 2}
