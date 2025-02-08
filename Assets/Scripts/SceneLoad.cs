@@ -13,16 +13,13 @@ public class SceneLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            LoadNextLevel();
-        }
+        
     }
 
-    public void LoadNextLevel()
+    public void LoadSceneByIndex(int index)
     {
 
-        StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(LoadScene(index));
     }
 
     IEnumerator LoadScene(int index)

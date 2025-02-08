@@ -236,8 +236,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1267476718974116405, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 482768457}
+    - target: {fileID: 1267476718974116405, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
       propertyPath: transitionTime
-      value: 1.5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752682466954876391, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049639265117708225, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3383270391581872221, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
       propertyPath: m_LocalPosition.x
@@ -283,11 +295,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 6090688539569684773, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
+--- !u!95 &482768457 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1980766033793333337, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
+  m_PrefabInstance: {fileID: 482768456}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &901378687
 GameObject:
   m_ObjectHideFlags: 0
