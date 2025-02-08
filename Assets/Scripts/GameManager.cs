@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // 确保只有一个 GameManager 实例
+        // 确保单例
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 场景切换时不销毁
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
         // 使用 Player 的 SavePlayerData 方法获取玩家数据
         PlayerData playerData = player.SavePlayerData();
 
-        // 使用 BinaryFormatter 将数据序列化为二进制
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream fileStream = File.Create(saveFilePath);
 

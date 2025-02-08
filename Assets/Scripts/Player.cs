@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     public int scene; // 玩家所处的场景索引
     public int[] items; // 玩家拥有的物品（整型数组）
     public int storyProgress; // 玩家所处的剧情进度
+    public bool inGal; // 玩家是否处于gal状态
 
     public PlayerData SavePlayerData()
     {
@@ -13,7 +14,8 @@ public class Player : MonoBehaviour
         {
             scene = scene,
             items = items,
-            storyProgress = storyProgress
+            storyProgress = storyProgress,
+            inGal = inGal
         };
     }
 
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
         scene = data.scene;
         items = data.items;
         storyProgress = data.storyProgress;
+        inGal = data.inGal;
     }
 }
 
@@ -32,4 +35,5 @@ public class PlayerData
     public int scene; // 玩家所处的场景索引
     public int[] items; // 玩家拥有的物品
     public int storyProgress; // 玩家所处的剧情进度
+    public bool inGal; // 玩家是否处于gal状态
 }
