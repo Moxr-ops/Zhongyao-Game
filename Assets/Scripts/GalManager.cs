@@ -1,16 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GalManager : MonoBehaviour
 {
     public static GalManager instance { get; private set; }
-    public GameObject galLoader;
+    private GalLoader galLoader;
     public Player player;
     public List<ScriptData> scriptDataList; // 包含对话脚本数据的列表
 
-    private int currentEnd = -1;
+    public int currentEnd = -1;
 
     private void Awake()
     {
@@ -33,17 +35,17 @@ public class GalManager : MonoBehaviour
     }
 
     // 开始Galgame的对话模式，直到end不等于-1，返回需要更新的物品的id
-    public int StartGal()
+    public void StartGal()
     {
         player.inGal = true;
 
         // 加载出GalLoader实例
-        GameObject gal = Instantiate(galLoader);
-        gal.transform.SetParent(transform, false);
-
-        currentEnd = -1;  // 重置当前结束标志
+        GameObject galLoaderPrefab = Resources.Load<GameObject>("GalLoaderPrefab");
+        galLoader = Instantiate(galLoaderPrefab).GetComponent<GalLoader>();
 
         TalkStream();
+
+        currentEnd = -1;  // 重置当前结束标志
 
     }
 
@@ -80,17 +82,16 @@ public class GalManager : MonoBehaviour
 
     private void DisplayDialogue(ScriptData script)
     {
-        // 在这里实现对话显示逻辑，例如：
-        // 显示角色名称：script.name
-        // 显示角色图片：script.img
-        // 显示对话文本：script.txt
+        galLoader.Show(script);
         Debug.Log($"Name: {script.name}, Img: {script.img}, Txt: {script.txt}");
     }
 
     private void EndDialogue()
     {
-        player.inGal = false;
-        // 其他结束对话的处理，可以是销毁UI元素等
+        if (GalLoader.Instance != null)
+        {
+            GalLoader.Instance.DestroyGal();
+        }
     }
 }
 

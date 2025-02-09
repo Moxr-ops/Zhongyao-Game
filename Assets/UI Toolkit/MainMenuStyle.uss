@@ -1,0 +1,33 @@
+.button {
+    width: 220px;
+    height: 60px;
+    align-self: center;
+    justify-content: flex-start;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 20px;
+    align-items: stretch;
+    margin-top: 50px;
+    padding-top: 0;
+    margin-bottom: 0;
+    border-top-color: rgba(0, 0, 0, 0);
+    flex-direction: column;
+    transition-duration: 0.35s;
+}
+
+.button:hover {
+    transition-duration: 0.35s;
+    scale: 1.1 1.1;
+    transition-delay: 0s;
+    transition-timing-function: ease;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}

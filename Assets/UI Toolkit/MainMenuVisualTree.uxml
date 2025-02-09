@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=b6029487489bded44ae678a213705efb&amp;type=3#MainMenuStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:Label tabindex="-1" text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" style="height: 429px;" />
+        <ui:Button text="开始游戏" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Start" class="button" style="transform-origin: center; flex-direction: column; position: relative; top: auto;" />
+        <ui:Button text="继续游戏" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Continue" class="button" />
+        <ui:Button text="退出游戏" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="button" />
+    </ui:VisualElement>
+</ui:UXML>
