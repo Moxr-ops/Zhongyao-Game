@@ -1,2 +1,4 @@
-Jon "Hello World."
-Amy "Hi!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+师傅 "徒儿啊 我是师傅" command0
+徒弟 "（芜而湖之，我是徒弟）。" command1
+老妪 as ??? "这是师傅，而这是徒弟，"
+"如果不写名字会怎样呢？"
