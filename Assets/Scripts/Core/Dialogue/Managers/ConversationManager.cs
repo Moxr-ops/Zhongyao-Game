@@ -25,10 +25,12 @@ namespace DIALOGUE
             userPrompt = true;
         }
 
-        public void StartConversation(List<string> conversation)
+        public Coroutine StartConversation(List<string> conversation)
         {
             StopConversation();
             process = dialogueSystem.StartCoroutine(RunningConversation(conversation));
+
+            return process;
         }
 
         public void StopConversation()
@@ -44,7 +46,6 @@ namespace DIALOGUE
         {
             for (int i = 0; i < conversation.Count; i++)
             {
-                // Don't show any blank lines or try to run any logic on them.
                 if (string.IsNullOrWhiteSpace(conversation[i]))
                     continue;
 
@@ -66,12 +67,15 @@ namespace DIALOGUE
 
         IEnumerator Line_RunDialogue(DIALOGUE_LINE line)
         {
+            // Show or hide the speaker name if there is one present.
             if (line.hasSpeaker)
-                dialogueSystem.ShowSpeakerName(line.speakerData.displayname);
-            //else
-            //    dialogueSystem.HideSpeakerName();
+                //dialogueSystem.ShowSpeakerName(line.speakerData.castName);
 
-            yield return BuildDialogue(line.dialogueData);
+            // Build dialogue
+            yield return BuildLineSegments(line.dialogueData);
+
+            // Wait for user input
+            yield return WaitForUserInput();
 
         }
 
@@ -88,9 +92,45 @@ namespace DIALOGUE
             yield return null;
         }
 
-        IEnumerator BuildDialogue(string dialogue)
+        IEnumerator BuildLineSegments(DL_DIALOGUE_DATA line)
         {
-            architect.Build(dialogue);
+            for (int i = 0; i < line.segments.Count; i++)
+            {
+                DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment = line.segments[i];
+                yield return WaitForDialogueSegmentSignalToBeTriggered(segment);
+
+                Debug.Log(segment.dialogue);
+
+                yield return BuildDialogue(segment.dialogue, segment.appendText);
+            }
+        }
+
+        IEnumerator WaitForDialogueSegmentSignalToBeTriggered(DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment)
+        {
+            switch (segment.startSignal)
+            {
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.C:
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.A:
+                    yield return WaitForUserInput();
+                    break;
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WC:
+                case DL_DIALOGUE_DATA.DIALOGUE_SEGMENT.StartSignal.WA:
+                    yield return new WaitForSeconds(segment.signalDelay);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        IEnumerator BuildDialogue(string dialogue, bool append = false)
+        {
+            // Build the dialogue
+            if (!append)
+                architect.Build(dialogue);
+            else
+                architect.Append(dialogue);
+
+            // Wait for the dialogue to complete.
             while (architect.isBuilding)
             {
                 if (userPrompt)
@@ -99,12 +139,10 @@ namespace DIALOGUE
                         architect.hurryUp = true;
                     else
                         architect.ForceComplete();
-
-                    userPrompt = false;
                 }
-
-                yield return null;
+                userPrompt = false;
             }
+            yield return null;
         }
 
         IEnumerator WaitForUserInput()
