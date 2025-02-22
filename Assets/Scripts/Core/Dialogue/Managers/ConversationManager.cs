@@ -69,7 +69,7 @@ namespace DIALOGUE
         {
             // Show or hide the speaker name if there is one present.
             if (line.hasSpeaker)
-                //dialogueSystem.ShowSpeakerName(line.speakerData.castName);
+                dialogueSystem.ShowSpeakerName(line.speakerData.castName);
 
             // Build dialogue
             yield return BuildLineSegments(line.dialogueData);
@@ -102,6 +102,8 @@ namespace DIALOGUE
                 Debug.Log(segment.dialogue);
 
                 yield return BuildDialogue(segment.dialogue, segment.appendText);
+
+                yield return null;
             }
         }
 
@@ -122,27 +124,45 @@ namespace DIALOGUE
             }
         }
 
+        //IEnumerator BuildDialogue(string dialogue, bool append = false)
+        //{
+        //    // Build the dialogue
+        //    if (!append)
+        //    {
+        //        Debug.Log("===drdm0===" + dialogue + append);
+        //        architect.Build(dialogue);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("===drdm1===" + dialogue + append);
+        //        architect.Append(dialogue);
+        //    }
+
+        //    // Wait for the dialogue to complete.
+        //    while (architect.isBuilding)
+        //    {
+        //        if (userPrompt)
+        //        {
+        //            if (!architect.hurryUp)
+        //                architect.hurryUp = true;
+        //            else
+        //                architect.ForceComplete();
+        //        }
+        //        userPrompt = false;
+        //    }
+        //    yield return null;
+        //}
+
         IEnumerator BuildDialogue(string dialogue, bool append = false)
         {
-            // Build the dialogue
+            Coroutine buildCoroutine = null;
             if (!append)
-                architect.Build(dialogue);
+                buildCoroutine = architect.Build(dialogue);
             else
-                architect.Append(dialogue);
+                buildCoroutine = architect.Append(dialogue);
 
-            // Wait for the dialogue to complete.
-            while (architect.isBuilding)
-            {
-                if (userPrompt)
-                {
-                    if (!architect.hurryUp)
-                        architect.hurryUp = true;
-                    else
-                        architect.ForceComplete();
-                }
-                userPrompt = false;
-            }
-            yield return null;
+            yield return buildCoroutine;
+
         }
 
         IEnumerator WaitForUserInput()

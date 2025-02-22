@@ -23,10 +23,10 @@ namespace TESTING
 
             List<string> lines = new List<string>()
             {
-                "Hi, there!",
-                "My name is Elen.",
-                "What's your name?",
-                "Oh, {wa 1} that's very nice."
+                "\"Hi, there!\"",
+                "\"My name is Elen.\"",
+                "\"What's your name?\"",
+                "\"Oh, {wa 1} that's very nice.\""
             };
 
             yield return Elen.Say(lines);

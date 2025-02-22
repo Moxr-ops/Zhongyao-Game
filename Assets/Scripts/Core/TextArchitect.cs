@@ -42,6 +42,14 @@ public class TextArchitect
 
     public Coroutine Build(string text)
     {
+        // 处理空文本：立即完成
+        if (string.IsNullOrEmpty(text))
+        {
+            tmpro.text = "";
+            OnComplete(); // 确保状态清理
+            return null;
+        }
+
         preText = "";
         targetText = text;
         Stop();
@@ -51,12 +59,27 @@ public class TextArchitect
 
     public Coroutine Append(string text)
     {
+        if (tmpro == null)
+        {
+            Debug.LogError("tmpro is null. Please ensure TextArchitect is initialized correctly.");
+            return null;
+        }
+
+        // 处理空文本：立即完成
+        if (string.IsNullOrEmpty(text))
+        {
+            tmpro.text = preText;
+            OnComplete();
+            return null;
+        }
+
         preText = tmpro.text;
         targetText = text;
         Stop();
         buildProcess = tmpro.StartCoroutine(Building());
         return buildProcess;
     }
+
 
     private Coroutine buildProcess = null;
     public bool isBuilding => buildProcess != null;
@@ -71,22 +94,33 @@ public class TextArchitect
 
     IEnumerator Building()
     {
-        Prepare();
-        switch (buildMethod)
+        try
         {
-            case BuildMethod.typewriter:
-                yield return Build_Typewriter();
-                break;
-            case BuildMethod.fade:
-                yield return Build_Fade();
-                break;
+            Prepare();
+            switch (buildMethod)
+            {
+                case BuildMethod.typewriter:
+                    yield return Build_Typewriter();
+                    break;
+                case BuildMethod.fade:
+                    yield return Build_Fade();
+                    break;
+            }
         }
-        OnComplete();
+        finally
+        {
+            // 无论协程如何结束，确保状态重置
+            OnComplete();
+        }
     }
 
     private void OnComplete()
     {
-        buildProcess = null;
+        if (buildProcess != null)
+        {
+            tmpro.StopCoroutine(buildProcess);
+            buildProcess = null;
+        }
         hurryUp = false;
     }
 
@@ -101,8 +135,7 @@ public class TextArchitect
                 tmpro.ForceMeshUpdate();
                 break;
         }
-        Stop();
-        OnComplete();
+        Stop(); // 调用 Stop 以确保 buildProcess = null
     }
 
     private void Prepare()
@@ -191,13 +224,22 @@ public class TextArchitect
 
     private IEnumerator Build_Typewriter()
     {
+        // 确保总字符数有效
+        if (tmpro.textInfo.characterCount == 0)
+            yield break; // 直接退出协程
+
         while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
         {
             tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 5 : charactersPerCycle;
 
+            // 防止越界
+            if (tmpro.maxVisibleCharacters > tmpro.textInfo.characterCount)
+                tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+
             yield return new WaitForSeconds(0.015f / speed);
         }
     }
+
 
     private IEnumerator Build_Fade()
     {
