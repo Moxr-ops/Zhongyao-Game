@@ -124,52 +124,93 @@ namespace DIALOGUE
             }
         }
 
+        IEnumerator BuildDialogue(string dialogue, bool append = false)
+        {
+            architect.Stop();
+
+            if (!append)
+                architect.Build(dialogue);
+            else
+                architect.Append(dialogue);
+
+            bool isFirstClickProcessed = false; // 标记是否已处理首次点击
+
+            while (architect.isBuilding)
+            {
+                if (userPrompt)
+                {
+                    if (!isFirstClickProcessed)
+                    {
+                        if (!architect.hurryUp)
+                        {
+                            architect.hurryUp = true;
+                            Debug.Log("首次点击：加速文本");
+                        }
+                        else
+                        {
+                            architect.ForceComplete();
+                            Debug.Log("首次点击：强制完成");
+                        }
+                        isFirstClickProcessed = true;
+                    }
+                    else
+                    {
+                        Debug.Log("同一帧内重复点击，已忽略");
+                    }
+
+                    userPrompt = false; // 消费事件
+                }
+
+                yield return null;
+
+                isFirstClickProcessed = false;
+            }
+        }
+
         //IEnumerator BuildDialogue(string dialogue, bool append = false)
         //{
-        //    // Build the dialogue
-        //    if (!append)
-        //    {
-        //        Debug.Log("===drdm0===" + dialogue + append);
-        //        architect.Build(dialogue);
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("===drdm1===" + dialogue + append);
-        //        architect.Append(dialogue);
-        //    }
+        //    architect.Stop();
+        //    isAccelerating = false; // 重置加速状态
 
-        //    // Wait for the dialogue to complete.
+        //    if (!append)
+        //        architect.Build(dialogue);
+        //    else
+        //        architect.Append(dialogue);
+
         //    while (architect.isBuilding)
         //    {
         //        if (userPrompt)
         //        {
-        //            if (!architect.hurryUp)
+        //            if (!isAccelerating)
+        //            {
+        //                // 首次点击：启动加速
         //                architect.hurryUp = true;
+        //                isAccelerating = true;
+        //                Debug.Log("启动加速");
+        //            }
         //            else
+        //            {
+        //                // 第二次点击：强制完成并退出
         //                architect.ForceComplete();
+        //                Debug.Log("强制完成");
+        //            }
+
+        //            userPrompt = false; // 消费事件
+        //            yield return null;  // 确保当前帧处理完成
         //        }
-        //        userPrompt = false;
+        //        yield return null;
         //    }
+
+        //    // 确保最终状态正确
+        //    isAccelerating = false;
         //    yield return null;
         //}
 
-        IEnumerator BuildDialogue(string dialogue, bool append = false)
-        {
-            Coroutine buildCoroutine = null;
-            if (!append)
-                buildCoroutine = architect.Build(dialogue);
-            else
-                buildCoroutine = architect.Append(dialogue);
-
-            yield return buildCoroutine;
-
-        }
-
         IEnumerator WaitForUserInput()
         {
-            while(!userPrompt)
+            userPrompt = false;
+            while (!userPrompt)
                 yield return null;
-
             userPrompt = false;
         }
     }

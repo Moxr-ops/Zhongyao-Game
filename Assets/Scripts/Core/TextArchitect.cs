@@ -17,7 +17,7 @@ public class TextArchitect
     public string fullTargetText => preText + targetText;
 
     public enum BuildMethod { instant, typewriter, fade }
-    public BuildMethod buildMethod = BuildMethod.typewriter;
+    public BuildMethod buildMethod = BuildMethod.fade;
 
     public Color textColor { get { return tmpro.color; } set { tmpro.color = value; } }
 
@@ -126,16 +126,20 @@ public class TextArchitect
 
     public void ForceComplete()
     {
+        if (!isBuilding)
+            return;
+
         switch (buildMethod)
         {
             case BuildMethod.typewriter:
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+                tmpro.ForceMeshUpdate();
                 break;
             case BuildMethod.fade:
                 tmpro.ForceMeshUpdate();
                 break;
         }
-        Stop(); // 调用 Stop 以确保 buildProcess = null
+        OnComplete(); // 确保状态立即更新
     }
 
     private void Prepare()
@@ -224,20 +228,24 @@ public class TextArchitect
 
     private IEnumerator Build_Typewriter()
     {
-        // 确保总字符数有效
-        if (tmpro.textInfo.characterCount == 0)
-            yield break; // 直接退出协程
+        tmpro.ForceMeshUpdate();
+        int totalCharacters = tmpro.textInfo.characterCount;
 
-        while (tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
+        while (tmpro.maxVisibleCharacters < totalCharacters)
         {
-            tmpro.maxVisibleCharacters += hurryUp ? charactersPerCycle * 5 : charactersPerCycle;
+            totalCharacters = tmpro.textInfo.characterCount;
+            if (totalCharacters == 0)
+                break;
 
-            // 防止越界
-            if (tmpro.maxVisibleCharacters > tmpro.textInfo.characterCount)
-                tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+            int speedMultiplier = hurryUp ? 5 : 1;
+            tmpro.maxVisibleCharacters += charactersPerCycle * speedMultiplier;
+            tmpro.maxVisibleCharacters = Mathf.Min(tmpro.maxVisibleCharacters, totalCharacters);
 
             yield return new WaitForSeconds(0.015f / speed);
         }
+
+        tmpro.maxVisibleCharacters = totalCharacters;
+        OnComplete();
     }
 
 
