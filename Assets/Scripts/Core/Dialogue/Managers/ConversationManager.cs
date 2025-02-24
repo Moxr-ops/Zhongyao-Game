@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CHARACTERS;
 using Unity.IO.Archive;
 using UnityEngine;
 
@@ -69,14 +70,42 @@ namespace DIALOGUE
         {
             // Show or hide the speaker name if there is one present.
             if (line.hasSpeaker)
-                dialogueSystem.ShowSpeakerName(line.speakerData.castName);
+                HandleSpeakerLogic(line.speakerData);
 
             // Build dialogue
             yield return BuildLineSegments(line.dialogueData);
+        }
 
-            // Wait for user input
-            yield return WaitForUserInput();
+        private void HandleSpeakerLogic(DL_SPEAKER_DATA speakerData)
+        {
+            Character character = CharacterManager.instance.GetCharacter(speakerData.name, createIfDoesNotExist: false);
+            if (character == null)
+                Debug.Log("===ConversationManager failed to creat the character===");
+            if (speakerData.makeCharacterEnter)
+            {
+                if (character == null)
+                    CharacterManager.instance.CreateCharacter(speakerData.name, revealAfterCreation: true);
+                else
+                    character.Show();
+            }
 
+            // Add character name to the UI
+            dialogueSystem.ShowSpeakerName(speakerData.displayname);
+
+            // Now customize the dialogue for this character - if applicable
+            DialogueSystem.instance.ApplySpeakerDataToDialogueContainer(speakerData.name);
+
+            if (speakerData.isCastingPosition)
+                character.MoveToPosition(speakerData.castPosition, smooth: true);
+
+            // Cast Expression
+            if (speakerData.isCastingExpressions)
+            {
+                Debug.Log("===isCastingExpressions===");
+
+                foreach (var ce in speakerData.CastExpressions)
+                    character.OnReceiveCastingExpression(ce.layer, ce.expression);
+            }
         }
 
         IEnumerator Line_RunCommands(DIALOGUE_LINE line)
@@ -84,7 +113,7 @@ namespace DIALOGUE
             List<DL_COMMAND_DATA.Command> commands = line.commandData.commands;
             foreach (DL_COMMAND_DATA.Command command in commands)
             {
-                if (command.waitForCompletion)
+                if (command.waitForCompletion || command.name == "wait")
                     yield return CommandManager.instance.Execute(command.name, command.arguments);
                 else
                     CommandManager.instance.Execute(command.name, command.arguments);

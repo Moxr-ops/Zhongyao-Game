@@ -42,18 +42,20 @@ namespace CHARACTERS
             return null;
         }
 
-        public Character CreateCharacter(string characterName)
+        public Character CreateCharacter(string characterName, bool revealAfterCreation = false)
         {
             if (characters.ContainsKey(characterName.ToLower()))
             {
                 Debug.LogWarning($"A Character called '{characterName}' already exists. Did not create the character.");
                 return null;
             }
+
             CHARACTER_INFO info = GetCharacterInfo(characterName);
-
             Character character = CreateCharacterFromInfo(info);
-
             characters.Add(info.name.ToLower(), character);
+
+            if (revealAfterCreation)
+                character.Show();
 
             return character;
         }

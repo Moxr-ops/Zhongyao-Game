@@ -17,6 +17,11 @@ public class TestDialogueFiles : MonoBehaviour
     {
         List<string> lines = FileManager.ReadTextAsset(fileToRead);
 
+        foreach (string line in lines)
+        {
+            Debug.Log(line);
+        }
+
         DialogueSystem.instance.Say(lines);
     }
 }
