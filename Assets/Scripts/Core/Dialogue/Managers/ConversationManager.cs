@@ -61,7 +61,11 @@ namespace DIALOGUE
                     yield return Line_RunCommands(line);
 
                 if(line.hasDialogue)
+                {
                     yield return WaitForUserInput();
+
+                    CommandManager.instance.StopAllProcesses();
+                }
 
             }
         }
@@ -80,7 +84,8 @@ namespace DIALOGUE
         {
             Character character = CharacterManager.instance.GetCharacter(speakerData.name, createIfDoesNotExist: false);
             if (character == null)
-                Debug.Log("===ConversationManager failed to creat the character===");
+                CharacterManager.instance.CreateCharacter(speakerData.name, revealAfterCreation: false);
+
             if (speakerData.makeCharacterEnter)
             {
                 if (character == null)
@@ -101,8 +106,6 @@ namespace DIALOGUE
             // Cast Expression
             if (speakerData.isCastingExpressions)
             {
-                Debug.Log("===isCastingExpressions===");
-
                 foreach (var ce in speakerData.CastExpressions)
                     character.OnReceiveCastingExpression(ce.layer, ce.expression);
             }
@@ -114,7 +117,18 @@ namespace DIALOGUE
             foreach (DL_COMMAND_DATA.Command command in commands)
             {
                 if (command.waitForCompletion || command.name == "wait")
-                    yield return CommandManager.instance.Execute(command.name, command.arguments);
+                {
+                    CoroutineWrapper cw = CommandManager.instance.Execute(command.name, command.arguments);
+                    while (!cw.IsDone)
+                    {
+                        if (userPrompt)
+                        {
+                            CommandManager.instance.StopCurrentProcess();
+                            userPrompt = false;
+                        }
+                        yield return null;
+                    }
+                }
                 else
                     CommandManager.instance.Execute(command.name, command.arguments);
             }
@@ -162,7 +176,7 @@ namespace DIALOGUE
             else
                 architect.Append(dialogue);
 
-            bool isFirstClickProcessed = false; // 标记是否已处理首次点击
+            bool isFirstClickProcessed = false;
 
             while (architect.isBuilding)
             {
@@ -173,12 +187,10 @@ namespace DIALOGUE
                         if (!architect.hurryUp)
                         {
                             architect.hurryUp = true;
-                            Debug.Log("首次点击：加速文本");
                         }
                         else
                         {
                             architect.ForceComplete();
-                            Debug.Log("首次点击：强制完成");
                         }
                         isFirstClickProcessed = true;
                     }

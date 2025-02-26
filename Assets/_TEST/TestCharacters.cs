@@ -31,8 +31,8 @@ namespace TESTING
             //Character guard2 = CreateCharacter("Test as Generic");
             //Character guard3 = CreateCharacter("Test as Generic");
 
-            Alia.Show();
-            Saki.Show();
+            Alia.Show(1f);
+            Saki.Show(1f);
             //guard2.Show();
             //guard3.Show();
 
@@ -40,7 +40,7 @@ namespace TESTING
 
             //Alia.SetPosition(new Vector2(0, 1));
 
-            yield return Alia.MoveToPosition(new Vector2(0, 0), smooth: true);
+            Alia.SetPosition(new Vector2(0, 0));
             yield return Saki.MoveToPosition(new Vector2(1, 1), smooth: true);
 
             Sprite bodySprite = Alia.GetSprite("1");

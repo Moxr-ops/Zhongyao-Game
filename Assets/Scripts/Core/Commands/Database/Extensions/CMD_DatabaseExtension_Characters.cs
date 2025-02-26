@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CHARACTERS;
 using DIALOGUE;
@@ -31,10 +32,12 @@ namespace COMMANDS
             string characterName = data[0];
             bool enable = false;
             bool immediate = false;
+            float speed = 1f;
 
             var parameters = ConvertDataToParameters(data);
             parameters.TryGetValue(PARAM_ENABLE, out enable, defaultValue: false);
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
 
             Character character = CharacterManager.instance.CreateCharacter(characterName);
 
@@ -44,7 +47,7 @@ namespace COMMANDS
             if (immediate)
                 character.isVisible = true;
             else
-                character.Show();
+                character.Show(speed);
         }
 
         private static IEnumerator MoveCharacter(string[] data) // e.p. MoveCharacter(Saki -x 0 -spd 0.75 -sm true)
@@ -54,7 +57,7 @@ namespace COMMANDS
 
             if (character == null)
             {
-                Debug.LogError($"Cannot find {character.name}");
+                UnityEngine.Debug.LogError($"Cannot find {character.name}");
                 yield break;
             }
 
@@ -82,18 +85,20 @@ namespace COMMANDS
 
             Vector2 position = new Vector2(x, y);
 
-            Debug.Log($"x = {x}, y = {y}, speed = {speed}, smooth = {smooth}");
-
             if (immediate)
                 character.SetPosition(position);
             else
+            {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() => { character?.SetPosition(position); });
                 yield return character.MoveToPosition(position, speed, smooth);
+            }
         }
 
         public static IEnumerator ShowAll(string[] data) // e.p. Show(Alia Saki -immediate false)
         {
             List<Character> characters = new List<Character>();
             bool immediate = false;
+            float speed = 1f;
 
             foreach (string s in data)
             {
@@ -110,6 +115,7 @@ namespace COMMANDS
 
             // Try to get the immediate parameter value
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
 
             // Call the logic on all the characters
             foreach (Character character in characters)
@@ -117,11 +123,17 @@ namespace COMMANDS
                 if (immediate)
                     character.isVisible = true;
                 else
-                    character.Show();
+                    character.Show(speed);
             }
 
             if (!immediate)
             {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
+                {
+                    foreach (Character character in characters)
+                        character.isVisible = true;
+                });
+
                 while (characters.Any(c => c.isRevealing))
                     yield return null;
             }
@@ -131,6 +143,7 @@ namespace COMMANDS
         {
             List<Character> characters = new List<Character>();
             bool immediate = false;
+            float speed = 1f;
 
             foreach (string s in data)
             {
@@ -147,6 +160,7 @@ namespace COMMANDS
 
             // Try to get the immediate parameter value
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
+            parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
 
             // Call the logic on all the characters
             foreach (Character character in characters)
@@ -154,11 +168,17 @@ namespace COMMANDS
                 if (immediate)
                     character.isVisible = false;
                 else
-                    character.Hide();
+                    character.Hide(speed);
             }
 
             if (!immediate)
             {
+                CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
+                {
+                    foreach (Character character in characters)
+                        character.isVisible = false;
+                });
+
                 while (characters.Any(c => c.isHiding))
                     yield return null;
             }

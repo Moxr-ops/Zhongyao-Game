@@ -65,7 +65,6 @@ namespace DIALOGUE
         {
             if (speakerName.ToLower() != "narrator")
             {
-                Debug.Log("Showing speaker name: " + speakerName);
                 dialogueContainer.nameContainer.Show(speakerName);
             }
             else
