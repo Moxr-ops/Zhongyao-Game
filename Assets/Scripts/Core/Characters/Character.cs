@@ -17,7 +17,7 @@ namespace CHARACTERS
         public string name = "";
         public string displayName = "";
         public RectTransform root = null;
-        public CharacterConfigData config;
+        public ItemConfigData config;
         public Animator animator;
         public Color color { get; protected set; } = Color.white;
         protected Color displayColor => highlighted ? highlightedColor : unhighlightedColor;
@@ -48,7 +48,7 @@ namespace CHARACTERS
         public bool isFacingRight => !facingLeft;
         public bool isFlipping => co_flipping != null;
 
-        public Character(string name, CharacterConfigData config, GameObject prefab)
+        public Character(string name, ItemConfigData config, GameObject prefab)
         {
             this.name = name;
             displayName = name;
@@ -109,8 +109,13 @@ namespace CHARACTERS
 
         public virtual IEnumerator ShowingOrHiding(bool show, float speedMultiplier)
         {
-            Debug.Log("Show/Hide cannot be called from a base character type.");
+            Debug.Log("Open/Close cannot be called from a base character type.");
             yield return null;
+        }
+
+        public virtual void ShowOrHideImmediately(bool show)
+        {
+            Debug.Log("Open/Close cannot be called from a base character type.");
         }
 
         public virtual void SetPosition(Vector2 position)

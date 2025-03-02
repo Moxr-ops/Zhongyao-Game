@@ -19,7 +19,7 @@ namespace COMMANDS
         private static string PARAM_XPOS => "x";
         private static string PARAM_YPOS => "y";
 
-        new public static void Extend(CommandDatabase database)
+        new public static void Extend(CommandDatabase database) // All commands are here
         {
             database.AddCommand("createcharacter", new Action<string[]>(CreateCharacter));
             database.AddCommand("movecharacter", new Func<string[], IEnumerator>(MoveCharacter));
@@ -27,7 +27,7 @@ namespace COMMANDS
             database.AddCommand("hide", new Func<string[], IEnumerator>(HideAll));
         }
 
-        public static void CreateCharacter(string[] data) // Only one character can be created at a time. e.p. CreateCharacter(Alia), CreateCharacter(Saki -e true -i false)
+        public static void CreateCharacter(string[] data) // Only one character can be created at a time. e.p. CreateItem(Alia), CreateItem(Saki -e true -i false)
         {
             string characterName = data[0];
             bool enable = false;
@@ -46,6 +46,7 @@ namespace COMMANDS
 
             if (immediate)
                 character.isVisible = true;
+
             else
                 character.Show(speed);
         }
@@ -94,7 +95,7 @@ namespace COMMANDS
             }
         }
 
-        public static IEnumerator ShowAll(string[] data) // e.p. Show(Alia Saki -immediate false)
+        public static IEnumerator ShowAll(string[] data) // e.p. Open(Alia Saki -immediate false)
         {
             List<Character> characters = new List<Character>();
             bool immediate = false;
@@ -117,11 +118,16 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
             parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
 
+            UnityEngine.Debug.Log($"speed = {speed}");
+
             // Call the logic on all the characters
             foreach (Character character in characters)
             {
                 if (immediate)
+                {
                     character.isVisible = true;
+                    character.ShowOrHideImmediately(true);
+                }
                 else
                     character.Show(speed);
             }
@@ -131,7 +137,10 @@ namespace COMMANDS
                 CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
                 {
                     foreach (Character character in characters)
-                        character.isVisible = true;
+                    {
+                        //character.isVisible = true;
+                        character.ShowOrHideImmediately(true);
+                    }
                 });
 
                 while (characters.Any(c => c.isRevealing))
@@ -166,7 +175,10 @@ namespace COMMANDS
             foreach (Character character in characters)
             {
                 if (immediate)
-                    character.isVisible = false;
+                {
+                    //character.isVisible = false;
+                    character.ShowOrHideImmediately(false);
+                }
                 else
                     character.Hide(speed);
             }
@@ -176,7 +188,10 @@ namespace COMMANDS
                 CommandManager.instance.AddTerminationActionToCurrentProcess(() =>
                 {
                     foreach (Character character in characters)
+                    {
                         character.isVisible = false;
+                        character.ShowOrHideImmediately(false);
+                    }
                 });
 
                 while (characters.Any(c => c.isHiding))

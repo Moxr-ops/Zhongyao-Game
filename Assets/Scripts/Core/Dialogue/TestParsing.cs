@@ -10,7 +10,7 @@ namespace TESTING
         // Start is called before the first frame update
         void Start()
         {
-            SendFileToParse();
+            //SendFileToParse();
         }
 
         void SendFileToParse()

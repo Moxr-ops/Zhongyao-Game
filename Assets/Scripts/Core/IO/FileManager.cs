@@ -44,7 +44,7 @@ public class FileManager
     public static List<string> ReadTextAsset(TextAsset asset, bool includeBlankLines = true)
     {
         List<string> lines = new List<string>();
-        // 使用 UTF-8 编码读取文本内容
+
         string text = Encoding.UTF8.GetString(Encoding.Default.GetBytes(asset.text));
 
         using (StringReader sr = new StringReader(text))

@@ -19,7 +19,7 @@ public class TestDialogueFiles : MonoBehaviour
 
         foreach (string line in lines)
         {
-            Debug.Log(line);
+            //Debug.Log(line);
         }
 
         DialogueSystem.instance.Say(lines);

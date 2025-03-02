@@ -18,9 +18,9 @@ namespace TESTING
         // Start is called before the first frame update
         void Start()
         {
-            //Character Raelin = CharacterManager.instance.CreateCharacter("Raelin");
-            //Character Stella2 = CharacterManager.instance.CreateCharacter("Stella");
-            //Character Adam = CharacterManager.instance.CreateCharacter("Adam");
+            //Character Raelin = CharacterManager.instance.CreateItem("Raelin");
+            //Character Stella2 = CharacterManager.instance.CreateItem("Stella");
+            //Character Adam = CharacterManager.instance.CreateItem("Adam");
             StartCoroutine(Test());
         }
 
@@ -28,13 +28,13 @@ namespace TESTING
         {
             Character_Sprite Alia = CreateCharacter("Alia") as Character_Sprite;
             Character_Sprite Saki = CreateCharacter("Saki") as Character_Sprite;
-            //Character guard2 = CreateCharacter("Test as Generic");
-            //Character guard3 = CreateCharacter("Test as Generic");
+            //Character guard2 = CreateItem("Test as Generic");
+            //Character guard3 = CreateItem("Test as Generic");
 
             Alia.Show(1f);
             Saki.Show(1f);
-            //guard2.Show();
-            //guard3.Show();
+            //guard2.Open();
+            //guard3.Open();
 
             yield return new WaitForSeconds(1);
 

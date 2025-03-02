@@ -52,7 +52,7 @@ namespace DIALOGUE
 
                 DIALOGUE_LINE line = DialogueParser.Parse(conversation[i]);
 
-                // Show dialogueData
+                // Open dialogueData
                 if (line.hasDialogue)
                     yield return Line_RunDialogue(line);
 
@@ -72,7 +72,7 @@ namespace DIALOGUE
 
         IEnumerator Line_RunDialogue(DIALOGUE_LINE line)
         {
-            // Show or hide the speaker name if there is one present.
+            // Open or hide the speaker name if there is one present.
             if (line.hasSpeaker)
                 HandleSpeakerLogic(line.speakerData);
 
@@ -142,7 +142,7 @@ namespace DIALOGUE
                 DL_DIALOGUE_DATA.DIALOGUE_SEGMENT segment = line.segments[i];
                 yield return WaitForDialogueSegmentSignalToBeTriggered(segment);
 
-                Debug.Log(segment.dialogue);
+                //Debug.Log(segment.dialogue);
 
                 yield return BuildDialogue(segment.dialogue, segment.appendText);
 

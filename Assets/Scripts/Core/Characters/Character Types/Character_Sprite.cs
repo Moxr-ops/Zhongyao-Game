@@ -19,13 +19,13 @@ namespace CHARACTERS
 
         public override bool isVisible => isRevealing || rootCG.alpha == 1;
 
-        public Character_Sprite(string name, CharacterConfigData config, GameObject prefab, string rootAssetsFolder) : base(name, config, prefab)
+        public Character_Sprite(string name, ItemConfigData config, GameObject prefab, string rootAssetsFolder) : base(name, config, prefab)
         {
             rootCG.alpha = ENABLE_ON_START ? 1 : 0;
             artAssetsDirectory = rootAssetsFolder + "/Images";
 
             GetLayers();
-            Debug.Log($"Created Sprite Character: '{name}'");
+            //Debug.Log($"Created Sprite Character: '{name}'");
         }
 
         private void GetLayers()
@@ -102,6 +102,17 @@ namespace CHARACTERS
             co_revealing = null;
             co_hiding = null;
         }
+
+        public override void ShowOrHideImmediately(bool show)
+        {
+            CanvasGroup self = rootCG;
+
+            if (show)
+                self.alpha = 1f;
+            else
+                self.alpha = 0;
+        }
+
         public override void SetColor(Color color)
         {
             base.SetColor(color);

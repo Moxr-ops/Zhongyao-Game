@@ -28,7 +28,7 @@ namespace CHARACTERS
             instance = this;
         }
 
-        public CharacterConfigData GetCharacterConfig(string characterName)
+        public ItemConfigData GetCharacterConfig(string characterName)
         {
             return config.GetConfig(characterName);
         }
@@ -85,7 +85,7 @@ namespace CHARACTERS
 
         private Character CreateCharacterFromInfo(CHARACTER_INFO info)
         {
-            CharacterConfigData config = info.config;
+            ItemConfigData config = info.config;
 
             switch (config.characterType)
             {
@@ -160,7 +160,7 @@ namespace CHARACTERS
             public string castingName = "";
             public string rootCharacterFolder = "";
 
-            public CharacterConfigData config = null;
+            public ItemConfigData config = null;
             public GameObject prefab = null;
         }
     }

@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using CHARACTERS;
 using UnityEngine;
+using CHARACTERS;
+using DIALOGUE;
 
 namespace TESTING
 {
@@ -17,13 +17,15 @@ namespace TESTING
 
         IEnumerator Running()
         {
+            yield return new WaitForSeconds(1);
+
             Character_Sprite Alia = CreateCharacter("Alia") as Character_Sprite;
-            Alia.Show(1f);
-            yield return new WaitForSeconds(0.5f);
+            Alia.Show();
 
-            AudioManager.instance.PlaySoundEffect("Audio/SFX/Birdsong");
+            yield return DialogueSystem.instance.Say("Narrator", "Can we see your ship?");
 
-            yield return new WaitForSeconds(1f);
+            AudioManager.instance.PlayTrack("Audio/SFX/Birdsong", volumeCap: 1f, pitch: 0.1f);
+            // AudioManager.instance.PlayVoice("Audio/Voices/Stella/Yeah_Laugh");
         }
     }
 }

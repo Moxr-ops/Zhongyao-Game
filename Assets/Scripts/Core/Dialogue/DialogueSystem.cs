@@ -49,11 +49,11 @@ namespace DIALOGUE
         public void ApplySpeakerDataToDialogueContainer(string speakerName)
         {
             Character character = CharacterManager.instance.GetCharacter(speakerName);
-            CharacterConfigData config = character != null ? character.config : CharacterManager.instance.GetCharacterConfig(speakerName);
+            ItemConfigData config = character != null ? character.config : CharacterManager.instance.GetCharacterConfig(speakerName);
             ApplySpeakerDataToDialogueContainer(config);
         }
 
-        public void ApplySpeakerDataToDialogueContainer(CharacterConfigData config)
+        public void ApplySpeakerDataToDialogueContainer(ItemConfigData config)
         {
             dialogueContainer.SetDialogueColor(config.dialogueColor);
             dialogueContainer.SetDialogueFont(config.dialogueFont);

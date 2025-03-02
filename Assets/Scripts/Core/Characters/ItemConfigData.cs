@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CHARACTERS
 {
     [System.Serializable]
-    public class CharacterConfigData
+    public class ItemConfigData
     {
         public string name;
         public string alias;
@@ -19,9 +19,9 @@ namespace CHARACTERS
         public TMP_FontAsset nameFont;
         public TMP_FontAsset dialogueFont;
 
-        public CharacterConfigData Copy()
+        public ItemConfigData Copy()
         {
-            CharacterConfigData result = new CharacterConfigData();
+            ItemConfigData result = new ItemConfigData();
             result.name = name;
             result.alias = alias;
             result.characterType = characterType;
@@ -37,11 +37,11 @@ namespace CHARACTERS
         private static Color defaultColor => DialogueSystem.instance.config.defaultTextColor;
         private static TMP_FontAsset defaultFont => DialogueSystem.instance.config.defaultFont;
 
-        public static CharacterConfigData Default
+        public static ItemConfigData Default
         {
             get
             {
-                CharacterConfigData result = new CharacterConfigData();
+                ItemConfigData result = new ItemConfigData();
                 result.name = "";
                 result.alias = "";
                 result.characterType = Character.CharacterType.Text;
