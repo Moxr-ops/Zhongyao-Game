@@ -18,6 +18,9 @@ public class FilePaths
     public static readonly string resources_music = $"{resources_audio}Music/";
     public static readonly string resources_ambience = $"{resources_audio}Ambience/";
 
+    public static readonly string resources_tasks = "Tasks/";
+    public static readonly string resources_task = $"{resources_tasks}Task/";
+
     /// <summary>
     /// Returns the path to the resource using the default path or the loaderRoot of the resources folder
     /// </summary>

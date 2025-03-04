@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ITEMS
 {
@@ -14,6 +15,7 @@ namespace ITEMS
         public RectTransform root = null;
         public ItemConfigData config;
         public Animator animator;
+        private CanvasGroup rootCG => root.GetComponent<CanvasGroup>();
         public Color color { get; protected set; } = Color.white;
         protected Color displayColor => highlighted ? highlightedColor : unhighlightedColor;
         protected Color highlightedColor => color;
@@ -34,7 +36,6 @@ namespace ITEMS
         public bool isUnHighlighting => (!highlighted && co_highlighting != null);
         public virtual bool isVisible { get; set; }
         public bool isFlipping => co_flipping != null;
-
         protected ItemsManager itemManager => ItemsManager.instance;
 
         public Item(string name, ItemConfigData config, GameObject prefab)
@@ -44,7 +45,7 @@ namespace ITEMS
 
             if (prefab != null)
             {
-                GameObject ob = Object.Instantiate(prefab);
+                GameObject ob = Object.Instantiate(prefab, itemManager.itemPanel);
             }
         }
 
@@ -60,9 +61,31 @@ namespace ITEMS
             return co_revealing;
         }
 
-        public virtual IEnumerator ShowingOrHiding(bool show, float speedMultiplier)
+        public Coroutine Hide(float speedMultiplier = 1f)
         {
-            yield return null;
+            if (isHiding)
+                return co_hiding;
+
+            if (isRevealing)
+                itemManager.StopCoroutine(co_revealing);
+
+            co_hiding = itemManager.StartCoroutine(ShowingOrHiding(false, speedMultiplier));
+            return co_hiding;
+        }
+
+        public IEnumerator ShowingOrHiding(bool show, float speedMultiplier)
+        {
+            float targetAlpha = show ? 1f : 0;
+            CanvasGroup self = rootCG;
+
+            while (self.alpha != targetAlpha)
+            {
+                self.alpha = Mathf.MoveTowards(self.alpha, targetAlpha, 3f * Time.deltaTime * speedMultiplier);
+                yield return null;
+            }
+
+            co_revealing = null;
+            co_hiding = null;
         }
     }
 }

@@ -9,6 +9,9 @@ namespace ITEMS
     public class ItemsManager : MonoBehaviour
     {
         [SerializeField] private ItemConfigSO config;
+        [SerializeField] private Transform _itemPanel = null;
+        [SerializeField] private ItemWarehouse warehouse = null;
+        public Transform itemPanel => _itemPanel;
 
         public static ItemsManager instance { get; private set; }
         private Dictionary<string, Item> items = new Dictionary<string, Item>();
@@ -57,13 +60,13 @@ namespace ITEMS
             ITEM_INFO result = new ITEM_INFO();
 
             result.config = config.GetConfig(result.name);
-            result.prefab = GetPrefabForCharacter(result.name);
+            result.prefab = GetPrefabForItem(result.name);
             result.rootItemFolder = FormatItemPath(itemRootPathFormat, result.name);
 
             return result;
         }
 
-        private GameObject GetPrefabForCharacter(string itemName)
+        private GameObject GetPrefabForItem(string itemName)
         {
             string prefabPath = FormatItemPath(itemPrefabPathFormat, itemName);
             return Resources.Load<GameObject>(prefabPath);
@@ -76,6 +79,20 @@ namespace ITEMS
             ItemConfigData config = info.config;
 
             return new Item(config.name, config, info.prefab);
+        }
+
+        public void AddToWarehouse(string name)
+        {
+            ITEM_INFO info = GetItemInfo(name);
+
+            if (info.config.name != "")
+            {
+                warehouse.AddItem(name);
+            }
+            else
+            {
+                Debug.Log($"Cannot add {name} to the warehouse");
+            }            
         }
 
         private class ITEM_INFO
