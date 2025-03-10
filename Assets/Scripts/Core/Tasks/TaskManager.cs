@@ -38,7 +38,7 @@ public class TaskManager : MonoBehaviour
         }
     }
 
-    public void AddTaskByTask(Task task)
+    private void AddTaskByTask(Task task)
     {
         if (!allTasks.ContainsKey(task.ID))
         {
@@ -54,16 +54,20 @@ public class TaskManager : MonoBehaviour
         {
             if (!task.AreDependenciesMet())
             {
-                Debug.Log(task.taskName + "not complete");
+                Debug.Log(task.taskName + " not met");
 
                 continue;
             }
 
             if (task.CheckCompletion())
             {
-                task.ExecuteRewards();
-                activeTasks.Remove(task);
-                allTasks.Remove(task.ID);
+                Debug.Log(task.taskName + " complete");
+                task.Complete();
+
+            }
+            else
+            {
+                Debug.Log(task.taskName + " not complete");
             }
         }
     }

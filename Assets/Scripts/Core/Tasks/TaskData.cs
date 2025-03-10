@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,8 +14,11 @@ public class TaskData : ScriptableObject
     public TaskCondition[] conditions;
     public TaskDependency[] taskDependency;
 
-    [Header("Callback Function")]
-    public UnityEvent onComplete;
+    //[Header("Callback Function")]
+    //public UnityEvent onComplete;
+
+    [Header("Callback Commands")]
+    [TextArea] public string onCompleteCommandNames;
 
     public Task GetTask()
     {
@@ -24,7 +28,8 @@ public class TaskData : ScriptableObject
             taskName = taskName,
             conditions = conditions,
             dependencies = taskDependency,
-            onComplete = onComplete
+            //onComplete = onComplete,
+            onCompleteCommandNames = onCompleteCommandNames
         };
     }
 }

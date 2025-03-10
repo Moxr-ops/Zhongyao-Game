@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e7ad47fb75ed8488b1a33b18104946, type: 3}
   m_Name: New Brew Condition
   m_EditorClassIdentifier: 
+  requiredMedicine:
+  - hdlm
+  medicineIsMet: 1

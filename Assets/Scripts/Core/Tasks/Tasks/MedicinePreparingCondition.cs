@@ -18,9 +18,11 @@ public class MedicinePreparingCondition : TaskCondition
     {
         foreach (var item in requiredMedicine)
         {
-            if(!ItemWarehouse.Instance.HasItem(item))
+            if (!ItemWarehouse.Instance.HasItem(item))
+            {
                 medicineIsMet = false;
-            return;
+                return;
+            }
         }
         medicineIsMet = true;
         return;
@@ -29,6 +31,7 @@ public class MedicinePreparingCondition : TaskCondition
     public override bool IsMet()
     {
         CheckMedicine();
+        Debug.Log(medicineIsMet);
         return medicineIsMet;
     }
 

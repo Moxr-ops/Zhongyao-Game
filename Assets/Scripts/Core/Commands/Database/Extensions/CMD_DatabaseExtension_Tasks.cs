@@ -24,8 +24,6 @@ namespace COMMANDS
         {
             string[] taskNames = data;
 
-            Debug.Log(taskNames[0]);
-
             foreach ( var taskName in taskNames )
             {
                 TaskManager.Instance.AddTaskByName(taskName);

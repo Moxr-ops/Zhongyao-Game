@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58270447b880be54485e0f1a0b8d6d2d, type: 3}
   m_Name: Item Configuration Asset
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - name: hdlm
+    nameColor: {r: 0, g: 0, b: 0, a: 0}
+    characteristic: 
+    nameFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -18,7 +18,7 @@ namespace ITEMS
 
         private const string ITEM_NAME_ID = "<itemname>";
 
-        public string itemRootPathFormat => $"items/{ITEM_NAME_ID}";
+        public string itemRootPathFormat => $"Items/{ITEM_NAME_ID}";
         public string itemPrefabNameFormat => $"Character - [{ITEM_NAME_ID}]";
         public string itemPrefabPathFormat => $"{itemRootPathFormat}/{itemPrefabNameFormat}";
 
@@ -59,9 +59,9 @@ namespace ITEMS
         {
             ITEM_INFO result = new ITEM_INFO();
 
-            result.config = config.GetConfig(result.name);
-            result.prefab = GetPrefabForItem(result.name);
-            result.rootItemFolder = FormatItemPath(itemRootPathFormat, result.name);
+            result.config = config.GetConfig(itemName);
+            result.prefab = GetPrefabForItem(itemName);
+            result.rootItemFolder = FormatItemPath(itemRootPathFormat, itemName);
 
             return result;
         }
@@ -69,6 +69,7 @@ namespace ITEMS
         private GameObject GetPrefabForItem(string itemName)
         {
             string prefabPath = FormatItemPath(itemPrefabPathFormat, itemName);
+
             return Resources.Load<GameObject>(prefabPath);
         }
 
@@ -88,16 +89,17 @@ namespace ITEMS
             if (info.config.name != "")
             {
                 warehouse.AddItem(name);
+                Debug.Log($"Added {name} to the warehouse");
             }
             else
             {
                 Debug.Log($"Cannot add {name} to the warehouse");
-            }            
+            }
         }
 
         private class ITEM_INFO
         {
-            public string name = "";
+            public string name => config.name;
             public string rootItemFolder = "";
 
             public ItemConfigData config = null;
