@@ -29,5 +29,10 @@ namespace COMMANDS
                 TaskManager.Instance.AddTaskByName(taskName);
             }
         }
+
+        private static  void RemoveTaskByName(string[] data)
+        {
+
+        }
     }
 }

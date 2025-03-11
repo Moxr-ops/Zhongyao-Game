@@ -12,6 +12,6 @@ public class TaskDependency
             return false;
 
         var task = TaskManager.Instance.allTasks[requiredTaskID];
-        return mustCompleteBefore ? task.isActive : !task.isActive;
+        return mustCompleteBefore ? task.IsActive : !task.IsActive;
     }
 }

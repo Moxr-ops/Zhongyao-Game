@@ -24,12 +24,10 @@ public class TaskData : ScriptableObject
     {
         return new Task
         {
-            ID = taskID,
-            taskName = taskName,
-            conditions = conditions,
-            dependencies = taskDependency,
-            //onComplete = onComplete,
-            onCompleteCommandNames = onCompleteCommandNames
+            _id = taskID,
+            _conditions = conditions,
+            _dependencies = taskDependency,
+            _onCompleteCommandNames = onCompleteCommandNames
         };
     }
 }

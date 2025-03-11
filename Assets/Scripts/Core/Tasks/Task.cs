@@ -12,45 +12,54 @@ using System.Collections;
 [System.Serializable]
 public class Task
 {
-    public string ID;
-    public string taskName;
+    [SerializeField] public string _id;
+    public string ID => _id;
+    public string DisplayName => _id;
 
-    public TaskCondition[] conditions;
-    //public UnityEvent onComplete;
-    //private UnityAction _onCompleteAction;
-    public TaskDependency[] dependencies;
-    private CommandManager commandManager => CommandManager.instance;
+    [SerializeField] public TaskCondition[] _conditions;
+    [SerializeField] public TaskDependency[] _dependencies;
+    [SerializeField] public string _onCompleteCommandNames;
 
-    public string onCompleteCommandNames = null;
-    private DL_COMMAND_DATA commandData = null;
-    public bool isActive;
+    private DL_COMMAND_DATA _commandData;
+    private bool _isActive;
+    private CommandManager _commandManager => CommandManager.instance;
 
-    public bool isCompleted => isActive && conditions.All(c => c.IsMet());
+    public bool IsActive => _isActive;
+    public bool IsCompleted => _isActive && _conditions.All(c => c.IsMet());
 
     public void Initialize()
     {
         if (!AreDependenciesMet()) return;
 
-        commandData = new DL_COMMAND_DATA(onCompleteCommandNames);
+        _commandData = new DL_COMMAND_DATA(_onCompleteCommandNames);
 
-        foreach (var condition in conditions)
+        foreach (var condition in _conditions)
         {
             condition.RegisterListeners();
         }
-        isActive = true;
+        _isActive = true;
+    }
+
+    public void Cleanup()
+    {
+        foreach (var condition in _conditions)
+        {
+            condition.UnregisterListeners();
+        }
+        _isActive = false;
     }
 
     public bool AreDependenciesMet()
     {
-        return dependencies.All(d =>
-            TaskManager.Instance.allTasks.ContainsKey(d.requiredTaskID) &&
-            !TaskManager.Instance.allTasks[d.requiredTaskID].isActive
+        return _dependencies.All(d =>
+            TaskManager.Instance.allTasks.TryGetValue(d.requiredTaskID, out Task task) &&
+            task.IsCompleted
         );
     }
 
     public bool CheckCompletion()
     {
-        return isActive && conditions.All(c => c.IsMet());
+        return IsCompleted;
     }
 
     public void ExecuteRewards()
@@ -60,42 +69,38 @@ public class Task
 
     private IEnumerator ExecutingRewards()
     {
-        //EventCenter.Instance.taskEvents[ID]?.Invoke();
-        isActive = false;
-        foreach (var condition in conditions)
+        _isActive = false;
+
+        foreach (var condition in _conditions)
         {
             condition.UnregisterListeners();
         }
 
-        List<DL_COMMAND_DATA.Command> commands = commandData.commands;
-        foreach (DL_COMMAND_DATA.Command command in commands)
+        if (_commandData?.commands == null) yield break;
+
+        foreach (var command in _commandData.commands)
         {
+            var cw = _commandManager.Execute(command.name, command.arguments);
+
             if (command.waitForCompletion || command.name == "wait")
             {
-                CoroutineWrapper cw = CommandManager.instance.Execute(command.name, command.arguments);
                 while (!cw.IsDone)
                 {
                     yield return null;
                 }
             }
-            else
-                CommandManager.instance.Execute(command.name, command.arguments);
         }
     }
 
-    public IEnumerator CompleteAsync()
+    private IEnumerator CompleteAsync()
     {
-        if (!isActive) yield break;
-
         yield return TaskManager.Instance.StartCoroutine(ExecutingRewards());
-
-        isActive = false;
+        Cleanup();
     }
 
     public void Complete()
     {
-        if (!isActive) return;
-
+        if (!_isActive) return;
         TaskManager.Instance.StartCoroutine(CompleteAsync());
     }
 }

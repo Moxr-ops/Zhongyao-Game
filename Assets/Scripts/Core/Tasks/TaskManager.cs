@@ -38,6 +38,22 @@ public class TaskManager : MonoBehaviour
         }
     }
 
+    public void RemoveTaskByName(string taskName)
+    {
+        if (allTasks.TryGetValue(taskName, out Task task))
+        {
+            activeTasks.Remove(task);
+            allTasks.Remove(taskName);
+
+            task.Cleanup();
+            Debug.Log($"Task {taskName} removed successfully.");
+        }
+        else
+        {
+            Debug.LogWarning($"Task with name {taskName} not found.");
+        }
+    }
+
     private void AddTaskByTask(Task task)
     {
         if (!allTasks.ContainsKey(task.ID))
@@ -48,26 +64,35 @@ public class TaskManager : MonoBehaviour
         }
     }
 
+    private void RemoveTaskByTask(Task task)
+    {
+        if (allTasks.ContainsKey(task.ID))
+        {
+            activeTasks.Remove(task);
+            allTasks.Remove(task.ID);
+        }
+    }
+
     public void CheckTaskProgress()
     {
         foreach (var task in activeTasks.ToArray())
         {
             if (!task.AreDependenciesMet())
             {
-                Debug.Log(task.taskName + " not met");
+                Debug.Log(task.ID + " not met");
 
                 continue;
             }
 
             if (task.CheckCompletion())
             {
-                Debug.Log(task.taskName + " complete");
+                Debug.Log(task.ID + " complete");
                 task.Complete();
 
             }
             else
             {
-                Debug.Log(task.taskName + " not complete");
+                Debug.Log(task.ID + " not complete");
             }
         }
     }
