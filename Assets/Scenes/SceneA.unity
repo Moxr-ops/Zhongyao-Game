@@ -2119,6 +2119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1488792603}
+  - component: {fileID: 1488792604}
   m_Layer: 0
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -2141,6 +2142,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1455621634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1488792604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488792602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c237df7455712f84ea63f3bbce9fc818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileToRead: {fileID: 4900000, guid: 3362c197da0037c46ab0c0c61cd767cc, type: 3}
 --- !u!1 &1504413434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,7 +2517,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957626096}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794860df30e27184bab2e3acbb1bcdc8, type: 3}
   m_Name: 

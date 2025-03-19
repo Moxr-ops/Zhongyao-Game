@@ -91,7 +91,7 @@ public class MainMenuEvents : MonoBehaviour
     // Quit按钮点击事件
     private void OnQuitClick(ClickEvent evt)
     {
-        Application.Quit(); // 退出游戏
+        Application.Quit();
     }
 
     // 所有按钮的通用点击事件

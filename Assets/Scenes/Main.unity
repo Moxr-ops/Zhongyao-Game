@@ -1047,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5617977364942351116, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6041060288707236480, guid: 2b7bd1a8e3f9c664286ba90d99174a85, type: 3}
       propertyPath: m_Pivot.x
@@ -1668,8 +1668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be11e3dfb92eb4e4eb6a86c553c83938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1473285330}
-  currentEnd: -1
 --- !u!1 &1282315483
 GameObject:
   m_ObjectHideFlags: 0

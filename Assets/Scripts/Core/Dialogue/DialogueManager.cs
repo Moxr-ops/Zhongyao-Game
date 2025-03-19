@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using CHARACTERS;
 using System.Collections.Generic;
+using UnityEditor;
 
 namespace DIALOGUE
 {
@@ -24,6 +25,11 @@ namespace DIALOGUE
             List<string> lines = FileManager.ReadTextAsset(fileToRead);
 
             DialogueSystem.instance.Say(lines);
+        }
+
+        public void SetFileToRead(string filename)
+        {
+            fileToRead = AssetDatabase.LoadAssetAtPath<TextAsset>(FilePaths.GetPathToResource(FilePaths.resources_gamescript, filename));
         }
 
         public void EndDialogue()

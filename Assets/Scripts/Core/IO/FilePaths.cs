@@ -21,6 +21,9 @@ public class FilePaths
     public static readonly string resources_tasks = "Tasks/";
     public static readonly string resources_task = $"{resources_tasks}Task/";
 
+    public static readonly string resources_gamescripts = "GameScripts/";
+    public static readonly string resources_gamescript = $"{resources_gamescripts}";
+
     /// <summary>
     /// Returns the path to the resource using the default path or the loaderRoot of the resources folder
     /// </summary>

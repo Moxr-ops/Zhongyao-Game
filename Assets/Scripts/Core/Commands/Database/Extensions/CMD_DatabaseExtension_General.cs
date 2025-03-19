@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DIALOGUE;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace COMMANDS
@@ -12,13 +13,14 @@ namespace COMMANDS
         private static string[] PARAM_IMMEDIATE => new string[] { "i", "immediate" };
         private static string[] PARAM_SPEED => new string[] { "spd", "speed" };
         private static string[] PARAM_SMOOTH => new string[] { "sm", "smooth" };
+        private static string[] PARAM_FILE => new string[] { "f", "file" };
         private static string PARAM_XPOS => "x";
         private static string PARAM_YPOS => "y";
 
         new public static void Extend(CommandDatabase database)
         {
             database.AddCommand("wait", new Func<string, IEnumerator>(Wait));
-            database.AddCommand("start", new Action(StartDialogue));
+            database.AddCommand("startdialogue", new Action<string[]>(StartDialogue));
             database.AddCommand("openloader", new Action<string[]>(OpenDialogueLoader));
             database.AddCommand("closeloader", new Action<string[]>(CloseDialogueLoader));
         }
@@ -31,8 +33,15 @@ namespace COMMANDS
             }
         }
 
-        private static void StartDialogue()
+        private static void StartDialogue(string[] data)
         {
+            string fileName;
+
+            var parameters = ConvertDataToParameters(data);
+            parameters.TryGetValue(PARAM_FILE, out fileName, defaultValue: "testFile");
+
+            DialogueManager.instance.SetFileToRead(fileName);
+
             DialogueManager.instance.StartDialogue();
         }
 
