@@ -67,7 +67,7 @@ public class MainMenuEvents : MonoBehaviour
     private void OnPlayGameClick(ClickEvent evt)
     {
         Debug.Log("Start");
-        sceneLoad.LoadSceneByIndex(1);
+        SceneLoaderManager.Instance.TransitionToScene("Cloud", 1);
     }
 
     // Continue按钮点击事件
