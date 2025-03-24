@@ -8,6 +8,8 @@ namespace ITEMS
         private static ItemWarehouse _instance;
         public static ItemWarehouse Instance => _instance;
 
+        public int ItemCount => _obtainedItems.Count;
+
         private HashSet<string> _obtainedItems = new HashSet<string>();
         public event System.Action<string> OnItemAdded;    // Item added event
         public event System.Action<string> OnItemRemoved;  // Item removed event
@@ -74,12 +76,6 @@ namespace ITEMS
         {
             _obtainedItems.Clear();
             Debug.Log("Warehouse has been cleared");
-        }
-
-        // Get the total number of items in the warehouse
-        public int GetItemCount()
-        {
-            return _obtainedItems.Count;
         }
 
         // Add default items in bulk (for initialization)
