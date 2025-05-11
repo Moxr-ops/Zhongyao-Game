@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SocialPlatforms.Impl;
+using ARCHIVE;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class MainMenu : MonoBehaviour
     public Button exitGameButton;
 
     public SceneLoad sceneLoad;
+
+    [SerializeField]
+    ArchivingManager archivingManager => ArchivingManager.Instance;
+    Player player;
 
     private void Start()
     {
@@ -25,10 +31,9 @@ public class MainMenu : MonoBehaviour
 
     public void ContinueGame()
     {
-        if (File.Exists(Application.persistentDataPath + "/savegame.dat"))
+        if (ArchivingManager.Instance.HaveArchive())
         {
-            GameManager.Instance.LoadGame();
-
+            ArchivingManager.Instance.Load();
             sceneLoad.LoadSceneByIndex(1);
         }
         else

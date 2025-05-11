@@ -1,0 +1,4 @@
+wait(2)
+openloader()
+wait(2)
+CreateCharacter(Alia -e true -i true)

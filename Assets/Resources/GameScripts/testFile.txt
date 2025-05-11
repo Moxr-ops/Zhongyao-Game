@@ -1,3 +1,4 @@
+OpenLoader()
 CreateCharacter(Alia), CreateCharacter(Saki)
 
 Alia as ??? at 0 [0:1,1:face1] "Hi,{wa 1}how are you?"
@@ -7,3 +8,4 @@ enter Saki "Change the flower!"
 Alia [0:1,1:face2] "Ok, fine"
 MoveCharacter(Alia -x 1 -spd 0.1 -sm true)
 Alia "Good"
+CloseLoader()

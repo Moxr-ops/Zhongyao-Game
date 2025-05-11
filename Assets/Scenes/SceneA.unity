@@ -2057,6 +2057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d568e28109c57df4e9c286d90416b222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spacing: 2
+  centerPosition: {x: 0, y: 0}
 --- !u!4 &1385074800
 Transform:
   m_ObjectHideFlags: 0

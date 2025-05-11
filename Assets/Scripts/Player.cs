@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public int[] items; // 玩家拥有的物品（整型数组）
     public int storyProgress; // 玩家所处的剧情进度
     public bool inGal; // 玩家是否处于gal状态
+    public int timesPlayedGame; // 玩家进入游戏次数
 
     public PlayerData SavePlayerData()
     {

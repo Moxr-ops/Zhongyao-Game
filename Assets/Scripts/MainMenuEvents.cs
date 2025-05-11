@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.IO;
+using DIALOGUE;
+using ARCHIVE;
 
 public class MainMenuEvents : MonoBehaviour
 {
@@ -25,15 +27,12 @@ public class MainMenuEvents : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _document = GetComponent<UIDocument>();
 
-        // Start按钮
         _startButton = _document.rootVisualElement.Q("Start") as Button;
         _startButton.RegisterCallback<ClickEvent>(OnPlayGameClick);
 
-        // Continue按钮
         _continueButton = _document.rootVisualElement.Q("Continue") as Button;
         _continueButton.RegisterCallback<ClickEvent>(OnContinueClick);
 
-        // Quit按钮
         _quitButton = _document.rootVisualElement.Q("Quit") as Button;
         _quitButton.RegisterCallback<ClickEvent>(OnQuitClick);
 
@@ -68,23 +67,20 @@ public class MainMenuEvents : MonoBehaviour
     {
         Debug.Log("Start");
         SceneLoaderManager.Instance.TransitionToScene("Cloud", 1);
+        CommandManager.instance.Execute("startdialogue", "-f", "testLoader");
     }
 
     // Continue按钮点击事件
     private void OnContinueClick(ClickEvent evt)
     {
-        if (File.Exists(Application.persistentDataPath + "/savegame.dat"))
+        if (ArchivingManager.Instance.HaveArchive())
         {
-
-            GameManager.Instance.LoadGame();
-
-            sceneLoad.LoadSceneByIndex(player.scene); // 加载存档的逻辑还需完善
+            ArchivingManager.Instance.Load();
         }
         else
         {
-            // 如果没有存档，提示用户
-            Debug.LogWarning("No save file found! Starting new game.");
-            sceneLoad.LoadSceneByIndex(1);
+            Debug.Log("No save file found! Starting new game.");
+            SceneLoaderManager.Instance.TransitionToScene("Cloud", 1);
         }
     }
 
@@ -94,7 +90,6 @@ public class MainMenuEvents : MonoBehaviour
         Application.Quit();
     }
 
-    // 所有按钮的通用点击事件
     private void OnAllButtonsClick(ClickEvent evt)
     {
         _audioSource.Play();

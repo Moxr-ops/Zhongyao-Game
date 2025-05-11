@@ -45,6 +45,11 @@ namespace COMMANDS
             DialogueManager.instance.StartDialogue();
         }
 
+        private static void StartScene(string[] data)
+        {
+
+        }
+
         private static void OpenDialogueLoader(string[] data)
         {
             float speed = 1f;

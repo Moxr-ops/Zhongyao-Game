@@ -7,7 +7,8 @@ public class TaskManager : MonoBehaviour
     public static TaskManager Instance;
 
     [SerializeField] List<Task> activeTasks = new List<Task>();
-    public Dictionary<string, Task> allTasks => new Dictionary<string, Task>();
+    private Dictionary<string, Task> _allTasks = new Dictionary<string, Task>();
+    public Dictionary<string, Task> allTasks => _allTasks;
     List<ScriptableObject> allObjects => new List<ScriptableObject>();
 
     void Awake()
@@ -51,6 +52,19 @@ public class TaskManager : MonoBehaviour
         {
             Debug.LogWarning($"Task with name {taskName} not found.");
         }
+    }
+
+    public List<string> GetActiveTaskIDs()
+    {
+        List<string> activeIDs = new List<string>();
+        foreach (var task in allTasks.Values)
+        {
+            if (task.IsActive)
+            {
+                activeIDs.Add(task.ID);
+            }
+        }
+        return activeIDs;
     }
 
     private void AddTaskByTask(Task task)

@@ -42,13 +42,21 @@ namespace COMMANDS
             Character character = CharacterManager.instance.CreateCharacter(characterName);
 
             if (!enable)
+            {
+                UnityEngine.Debug.Log(enable);
                 return;
+            }
 
             if (immediate)
+            {
                 character.isVisible = true;
+                character.Show(20); // 其实应该用showorhideimmediately，但这里偷懒了（
+            }
 
             else
+            {
                 character.Show(speed);
+            }
         }
 
         private static IEnumerator MoveCharacter(string[] data) // e.p. MoveCharacter(Saki -x 0 -spd 0.75 -sm true)

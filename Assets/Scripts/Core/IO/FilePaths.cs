@@ -24,6 +24,8 @@ public class FilePaths
     public static readonly string resources_gamescripts = "GameScripts/";
     public static readonly string resources_gamescript = $"{resources_gamescripts}";
 
+    public static readonly string resources_archivefile = "Archive/";
+
     /// <summary>
     /// Returns the path to the resource using the default path or the loaderRoot of the resources folder
     /// </summary>

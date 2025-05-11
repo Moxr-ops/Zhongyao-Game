@@ -18,6 +18,8 @@ namespace COMMANDS
         new public static void Extend(CommandDatabase database)
         {
             database.AddCommand("addtask", new Action<string[]>(AddTaskByName));
+            database.AddCommand("destorytask", new Action<string[]>(DestoryTaskByName));
+            database.AddCommand("finishtask", new Action<string[]>(AddTaskByName));
         }
 
         private static void AddTaskByName(string[] data)
@@ -30,8 +32,14 @@ namespace COMMANDS
             }
         }
 
-        private static  void RemoveTaskByName(string[] data)
+        private static  void DestoryTaskByName(string[] data)
         {
+            string[] taskname = data;
+
+            foreach (var taskName in taskname)
+            {
+                TaskManager.Instance.RemoveTaskByName(taskName);
+            }
 
         }
     }

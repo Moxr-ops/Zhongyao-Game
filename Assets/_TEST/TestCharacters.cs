@@ -18,9 +18,9 @@ namespace TESTING
         // Start is called before the first frame update
         void Start()
         {
-            //Character Raelin = CharacterManager.instance.CreateItem("Raelin");
-            //Character Stella2 = CharacterManager.instance.CreateItem("Stella");
-            //Character Adam = CharacterManager.instance.CreateItem("Adam");
+            //Character Raelin = CharacterManager.Instance.CreateItem("Raelin");
+            //Character Stella2 = CharacterManager.Instance.CreateItem("Stella");
+            //Character Adam = CharacterManager.Instance.CreateItem("Adam");
             StartCoroutine(Test());
         }
 

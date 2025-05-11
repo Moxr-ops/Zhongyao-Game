@@ -22,7 +22,7 @@ public class EventCenter : MonoBehaviour
     {
         if (Instance == null)
         {
-            Debug.LogError("EventCenter instance is not initialized.");
+            Debug.LogError("EventCenter Instance is not initialized.");
             return;
         }
 

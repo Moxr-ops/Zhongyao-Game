@@ -1,4 +1,0 @@
-wait(1)
-Closeloader()
-wait(1)
-Openloader()
