@@ -41,3 +41,10 @@ MonoBehaviour:
     dialogueColor: {r: 0.75786155, g: 1, b: 0.9636643, a: 1}
     nameFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     dialogueFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - name: "\u62B1\u7434\u5973\u5B50"
+    alias: BK
+    characterType: 1
+    nameColor: {r: 0.51257855, g: 0.6310889, b: 1, a: 1}
+    dialogueColor: {r: 0, g: 0, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: c50e978c528ff7b4bb4c31b6166294a8, type: 2}

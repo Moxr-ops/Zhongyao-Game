@@ -1,4 +1,8 @@
 wait(2)
 openloader()
 wait(2)
-CreateCharacter(Alia -e true -i true)
+CreateCharacter(抱琴女子 -e true -i true)
+抱琴女子 "你好啊！"
+wait(2)
+TsSprite(抱琴女子 -sp bk2 -l 1 -spd 0.5)
+抱琴女子 "再见"

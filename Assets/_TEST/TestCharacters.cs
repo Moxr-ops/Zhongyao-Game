@@ -28,11 +28,13 @@ namespace TESTING
         {
             Character_Sprite Alia = CreateCharacter("Alia") as Character_Sprite;
             Character_Sprite Saki = CreateCharacter("Saki") as Character_Sprite;
+            Character_Sprite Bk = CreateCharacter("±§ÇÙÅ®×Ó") as Character_Sprite;
             //Character guard2 = CreateItem("Test as Generic");
             //Character guard3 = CreateItem("Test as Generic");
 
             Alia.Show(1f);
             Saki.Show(1f);
+            Bk.Show(1f);
             //guard2.Open();
             //guard3.Open();
 
@@ -45,9 +47,11 @@ namespace TESTING
 
             Sprite bodySprite = Alia.GetSprite("1");
             Sprite faceSprite = Alia.GetSprite("face2");
+            Sprite faceSprite0 = Bk.GetSprite("bk2");
 
             Alia.SetSprite(bodySprite, 0);
             Alia.TransitionSprite(faceSprite, 1);
+            Bk.TransitionSprite(faceSprite0, 1);
 
             //yield return Alia.TransitionColor(Color.green, speed : 0.3f);
             //yield return Alia.TransitionColor(Color.red);

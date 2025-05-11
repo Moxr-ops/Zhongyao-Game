@@ -755,6 +755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385953568}
   - component: {fileID: 385953569}
+  - component: {fileID: 385953570}
   m_Layer: 0
   m_Name: '[Testing]'
   m_TagString: Untagged
@@ -791,11 +792,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385953567}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81763204ff0cf3e4abcab52c081f9460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &385953570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385953567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc51c77e37d2c7c43be5ae2d224ecf95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempFont: {fileID: 0}
 --- !u!1 &448225595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,6 +2448,7 @@ MonoBehaviour:
   items: 
   storyProgress: 0
   inGal: 0
+  timesPlayedGame: 0
 --- !u!4 &1601814707
 Transform:
   m_ObjectHideFlags: 0
@@ -3003,7 +3018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6697960744006296196, guid: bbc7e216544648345a8fd74073f459df, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.24150085
+      value: 0.24151611
       objectReference: {fileID: 0}
     - target: {fileID: 6697960744006296196, guid: bbc7e216544648345a8fd74073f459df, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3104,7 +3119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2833011715340388533, guid: c55f5195e74f9b14196a0db7fa21eabe, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.24150085
+      value: 0.24151611
       objectReference: {fileID: 0}
     - target: {fileID: 2833011715340388533, guid: c55f5195e74f9b14196a0db7fa21eabe, type: 3}
       propertyPath: m_AnchoredPosition.y
