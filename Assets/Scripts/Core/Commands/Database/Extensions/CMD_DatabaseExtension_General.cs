@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DIALOGUE;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 
 namespace COMMANDS
 {
@@ -23,6 +24,7 @@ namespace COMMANDS
             database.AddCommand("startdialogue", new Action<string[]>(StartDialogue));
             database.AddCommand("openloader", new Action<string[]>(OpenDialogueLoader));
             database.AddCommand("closeloader", new Action<string[]>(CloseDialogueLoader));
+            database.AddCommand("resetloader", new Action<string[]>(ResetLoader));
         }
 
         private static IEnumerator Wait(string data)
@@ -42,12 +44,12 @@ namespace COMMANDS
 
             DialogueManager.instance.SetFileToRead(fileName);
 
+            if (int.TryParse(fileName, out int gameScriptIndex))
+            {
+                PlayerManager.instance.UpdateGameScriptIndex(gameScriptIndex);
+            }
+
             DialogueManager.instance.StartDialogue();
-        }
-
-        private static void StartScene(string[] data)
-        {
-
         }
 
         private static void OpenDialogueLoader(string[] data)
@@ -70,6 +72,10 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
 
             DialogueLoaderManager.instance.Close(speed);
+        }
+        private static void ResetLoader(string[] data)
+        {
+            DialogueLoaderManager.instance.ResetDialogueLoader();
         }
     }
 }

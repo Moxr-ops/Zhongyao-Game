@@ -5,6 +5,7 @@ using System.Linq;
 using CHARACTERS;
 using DIALOGUE;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 namespace ITEMS
 {
@@ -19,10 +20,12 @@ namespace ITEMS
         private Dictionary<string, Item> items = new Dictionary<string, Item>();
 
         private const string ITEM_NAME_ID = "<itemname>";
+        private const string ITEM_IMAGE_FOLDER = "Images";
 
-        public string itemRootPathFormat => $"Items/{ITEM_NAME_ID}";
-        public string itemPrefabNameFormat => $"Character - [{ITEM_NAME_ID}]";
+        public string itemRootPathFormat => $"Items/Medicine/{ITEM_NAME_ID}";
+        public string itemPrefabNameFormat => $"Medicine - [{ITEM_NAME_ID}]";
         public string itemPrefabPathFormat => $"{itemRootPathFormat}/{itemPrefabNameFormat}";
+        public string itemImagePathFormat => $"{itemRootPathFormat}/{ITEM_IMAGE_FOLDER}";
 
         private void Awake()
         {
@@ -46,6 +49,10 @@ namespace ITEMS
         public Item CreateItem(string itemName, bool revealAfterCreation = false)
         {
             ITEM_INFO info = GetItemInfo(itemName);
+            if (info != null)
+            {
+                Debug.Log(info.name);
+            }
             Item item = CreateItemFromInfo(info);
             items.Add(info.name.ToLower(), item);
 
@@ -57,7 +64,7 @@ namespace ITEMS
             return item;
         }
 
-        private ITEM_INFO GetItemInfo(string itemName)
+        public ITEM_INFO GetItemInfo(string itemName)
         {
             ITEM_INFO result = new ITEM_INFO();
 
@@ -76,7 +83,7 @@ namespace ITEMS
         }
 
         public string FormatItemPath(string path, string itemName) => path.Replace(ITEM_NAME_ID, itemName);
-
+        public string GetItemImagePath(string itemName) => FormatItemPath(itemImagePathFormat, itemName);
         private Item CreateItemFromInfo(ITEM_INFO info)
         {
             ItemConfigData config = info.config;
@@ -99,7 +106,7 @@ namespace ITEMS
             }
         }
 
-        private class ITEM_INFO
+        public class ITEM_INFO
         {
             public string name => config.name;
             public string rootItemFolder = "";

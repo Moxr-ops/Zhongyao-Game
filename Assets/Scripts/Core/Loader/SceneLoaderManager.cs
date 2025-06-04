@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using DG.Tweening;
+using System;
 using System.Collections;
+using DG.Tweening;
 
 public class SceneLoaderManager : MonoBehaviour
 {
@@ -46,41 +47,48 @@ public class SceneLoaderManager : MonoBehaviour
 
     public void TransitionToScene(string loaderName, int sceneIndex)
     {
-        if (!loaders.ContainsKey(loaderName))
-        {
-            Debug.LogError($"未找到转场控制器: {loaderName}");
-            return;
-        }
-
-        StartCoroutine(TransitionProcess(loaderName, sceneIndex));
+        TransitionToScene(loaderName, sceneIndex, defaultFadeDuration, null);
     }
 
-    private IEnumerator TransitionProcess(string loaderName, int sceneIndex)
+    public void TransitionToScene(string loaderName, int sceneIndex, float fadeDuration, Action onComplete)
     {
+        StartCoroutine(TransitionProcess(loaderName, sceneIndex, fadeDuration, onComplete));
+    }
+
+    private IEnumerator TransitionProcess(string loaderName, int sceneIndex, float fadeDuration, Action onComplete)
+    {
+        if (!loaders.ContainsKey(loaderName))
+        {
+            Debug.LogError($"找不到加载器: {loaderName}");
+            yield break;
+        }
+
         ISceneLoader loader = loaders[loaderName];
         GameObject loaderObj = loaderObjects.Find(o => o.name == loaderName);
 
         loaderObj.SetActive(true);
-        loader.FadeIn(defaultFadeDuration, defaultEaseType);
-        yield return new WaitForSecondsRealtime(defaultFadeDuration);
+        loader.FadeIn(fadeDuration, defaultEaseType);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Single);
         asyncLoad.allowSceneActivation = false;
 
-        while (asyncLoad.progress < 0.9f)
+        float fadeTimer = 0;
+        while (fadeTimer < fadeDuration || asyncLoad.progress < 0.9f)
         {
+            fadeTimer += Time.unscaledDeltaTime;
             yield return null;
         }
 
         asyncLoad.allowSceneActivation = true;
-
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
-        loader.FadeOut(defaultFadeDuration, defaultEaseType);
-        yield return new WaitForSecondsRealtime(defaultFadeDuration);
+        onComplete?.Invoke();
+        loader.FadeOut(fadeDuration, defaultEaseType);
+
+        yield return new WaitForSecondsRealtime(fadeDuration);
         loaderObj.SetActive(false);
     }
 }

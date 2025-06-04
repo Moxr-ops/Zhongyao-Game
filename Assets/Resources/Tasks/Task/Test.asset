@@ -18,4 +18,4 @@ MonoBehaviour:
   conditions:
   - {fileID: 11400000, guid: b6e88769238cacb40a790689c0223600, type: 2}
   taskDependency: []
-  onCompleteCommandNames: CreateCharacter(Alia -i true), Show(Alia -spd 0.01)
+  onCompleteCommandNames: StartDialogue(-f testLoader)

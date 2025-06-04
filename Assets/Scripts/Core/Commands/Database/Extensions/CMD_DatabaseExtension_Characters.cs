@@ -50,7 +50,6 @@ namespace COMMANDS
 
             if (!enable)
             {
-                UnityEngine.Debug.Log(enable);
                 return;
             }
 
@@ -84,19 +83,10 @@ namespace COMMANDS
 
             var parameters = ConvertDataToParameters(data);
 
-            // Try to get the x axis position
             parameters.TryGetValue(PARAM_XPOS, out x);
-
-            // Try to get the y axis position
             parameters.TryGetValue(PARAM_YPOS, out y);
-
-            // Try to get the speed
             parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1);
-
-            // Try to get the smoothing
-            parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: false);
-
-            // Try to get immediate setting of position
+            parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: true);
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
 
             Vector2 position = new Vector2(x, y);
@@ -133,7 +123,6 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
             parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1f);
 
-            UnityEngine.Debug.Log($"speed = {speed}");
 
             // Call the logic on all the characters
             foreach (Character character in characters)

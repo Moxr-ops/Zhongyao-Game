@@ -1,1 +1,2 @@
 AddTask(Test)
+addmedicinetowarehouse(-i 黄连)

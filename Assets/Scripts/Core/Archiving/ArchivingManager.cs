@@ -11,12 +11,32 @@ namespace ARCHIVE
         public static ArchivingManager Instance { get; private set; }
 
         [SerializeField] private GameObject playerObject;
+
         private string saveFileName = "archive.txt";
-        private string savePath => FilePaths.GetPathToResource(FilePaths.resources_archivefile, saveFileName);
+
+        private string savePath
+        {
+            get
+            {
+                string folderPath = Path.Combine(Application.persistentDataPath, "Archive");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                return Path.Combine(folderPath, saveFileName);
+            }
+        }
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         public void Save()
@@ -25,48 +45,49 @@ namespace ARCHIVE
             {
                 string jsonToSave = GetDataToArchive();
                 File.WriteAllText(savePath, jsonToSave);
-                Debug.Log("¥Êµµ≥…π¶£°");
+                Debug.Log("Save successful!" + savePath);
             }
             catch (Exception ex)
             {
-                Debug.LogError($"¥Êµµ ß∞‹: {ex.Message}");
+                Debug.LogError("Save failed: " + ex.Message);
             }
         }
 
         public void Load()
         {
             PlayerData playerData = GetDataToLoad();
-            Player player = playerObject.GetComponent<Player>();
-
-            int scene = playerData.playerScene;
-            List<string> items = playerData.items;
-            int timesPlayedGame = playerData.timesPlayerGame;
-            List<string> tasks = playerData.tasks;
-
-            player.scene = scene;
-            player.timesPlayedGame = timesPlayedGame + 1;
-
-            foreach (var itme in items)
+            if (playerData == null)
             {
-                ItemWarehouse.Instance.AddItem(itme);
+                Debug.LogWarning("No available save data");
+                return;
             }
 
-            foreach (var task in tasks)
+            Player player = playerObject.GetComponent<Player>();
+            if (player == null)
+            {
+                Debug.LogError("Player component not found");
+                return;
+            }
+
+            player.scene = playerData.playerScene;
+            player.timesPlayedGame = playerData.timesPlayerGame + 1;
+
+            foreach (var item in playerData.items)
+            {
+                ItemWarehouse.Instance.AddItem(item);
+            }
+
+            foreach (var task in playerData.tasks)
             {
                 TaskManager.Instance.AddTaskByName(task);
             }
+
+            Debug.Log("Save data loaded successfully");
         }
 
         public bool HaveArchive()
         {
-            if (File.Exists(savePath))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return File.Exists(savePath);
         }
 
         private PlayerData GetDataToLoad()
@@ -80,7 +101,7 @@ namespace ARCHIVE
             }
             catch (Exception ex)
             {
-                Debug.LogError($"∂¡»°¥Êµµ ß∞‹: {ex.Message}");
+                Debug.LogError("Failed to read save data: " + ex.Message);
                 return null;
             }
         }
@@ -89,14 +110,14 @@ namespace ARCHIVE
         {
             if (playerObject == null)
             {
-                Debug.LogError("Player∂‘œÛŒ¥∑÷≈‰£°");
+                Debug.LogError("Player object not assigned!");
                 return "{}";
             }
 
             Player player = playerObject.GetComponent<Player>();
             if (player == null)
             {
-                Debug.LogError("Player◊Èº˛»± ß£°");
+                Debug.LogError("Player component missing!");
                 return "{}";
             }
 
@@ -108,7 +129,8 @@ namespace ARCHIVE
                 playerScene = player.scene,
                 items = itemList,
                 timesPlayerGame = player.timesPlayedGame,
-                tasks = taskList
+                tasks = taskList,
+                gameScriptIndex = player.gameScriptIndex
             };
 
             return JsonUtility.ToJson(data, true);
@@ -121,6 +143,7 @@ namespace ARCHIVE
             public List<string> items;
             public int timesPlayerGame;
             public List<string> tasks;
+            public int gameScriptIndex;
         }
     }
 }

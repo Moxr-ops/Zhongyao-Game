@@ -1,0 +1,11 @@
+CreateCharacter
+MoveCharacter
+FaceLeft
+FaceRight
+
+Wait
+CreateMedicinePot
+CloseLoader
+AddMedicineToWarehouse
+
+AddTask

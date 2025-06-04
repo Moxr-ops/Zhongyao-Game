@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ITEMS;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace COUNTER
 {
@@ -24,17 +25,22 @@ namespace COUNTER
         {
             if (necessaryMedicines.Count > numberOfMedicineToPlace || ItemWarehouse.Instance.ItemCount < numberOfMedicineToPlace)
             {
+                Debug.Log("error");
                 return;
             }
 
             List<string> theOtherMedicines = SelectRandomElements(ItemWarehouse.Instance.GetAllItems(), numberOfMedicineToPlace - necessaryMedicines.Count);
             List<string> allMedicinesToPlace = necessaryMedicines.Union(theOtherMedicines).ToList();
 
+            Debug.Log(allMedicinesToPlace[0]);
+
             List<Vector2> positions = GeneratePositions(numberOfMedicineToPlace);
             positions = Shuffle(positions);
+            Debug.Log(positions);
 
             for (int i = 0; i < numberOfMedicineToPlace; i++)
             {
+                Debug.Log(i);
                 Item item = itemsManager.CreateItem(allMedicinesToPlace[i]);
                 item.SetPosition(positions[i]);
                 item.Show();
@@ -71,6 +77,11 @@ namespace COUNTER
                 positions.Add(new Vector2(-halfSpacing, -halfSpacing));
                 positions.Add(new Vector2(halfSpacing, -halfSpacing));
             }
+            else if (count == 1)
+            {
+                positions.Add(new Vector2(spacing, spacing));
+            }
+
 
             return positions;
         }

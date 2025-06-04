@@ -162,7 +162,6 @@ namespace CHARACTERS
                 yield return null;
             }
 
-            Debug.Log("Done moving");
             co_moving = null;
         }
 

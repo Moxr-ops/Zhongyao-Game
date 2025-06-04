@@ -22,6 +22,8 @@ public class MainMenuEvents : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    private const string FirstScriptID = "11";
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -66,8 +68,12 @@ public class MainMenuEvents : MonoBehaviour
     private void OnPlayGameClick(ClickEvent evt)
     {
         Debug.Log("Start");
-        SceneLoaderManager.Instance.TransitionToScene("Cloud", 1);
-        CommandManager.instance.Execute("startdialogue", "-f", "testLoader");
+        SceneLoaderManager.Instance.TransitionToScene("Cloud", 1, 1.5f, StartEvent);
+    }
+
+    private void StartEvent()
+    {
+        CommandManager.instance.Execute("startdialogue", "-f", FirstScriptID);
     }
 
     // Continue按钮点击事件

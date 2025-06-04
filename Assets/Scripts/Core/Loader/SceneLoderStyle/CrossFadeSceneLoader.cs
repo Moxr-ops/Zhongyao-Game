@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class CanvasGroupTransition : MonoBehaviour, ISceneLoader
+public class CrossFadeSceneLoader : MonoBehaviour, ISceneLoader
 {
     // [SerializeField] private float fadeDuration = 0.8f; // if wanna change the duration, turn to Manager
 

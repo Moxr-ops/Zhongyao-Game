@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DIALOGUE;
-using Unity.Loading;
 using UnityEngine;
 
 namespace CHARACTERS

@@ -45,6 +45,8 @@ namespace ITEMS
             if (prefab != null)
             {
                 GameObject ob = Object.Instantiate(prefab, itemManager.itemPanel);
+                root = ob.GetComponent<RectTransform>();
+                Debug.Log("get root");
             }
         }
 

@@ -11,9 +11,10 @@ namespace ITEMS
     {
         public string name;
 
-        public Color nameColor;
-
+        [TextArea(10, 10)]
         public string characteristic;
+
+        public Color nameColor;
 
         public TMP_FontAsset nameFont;
 
@@ -22,7 +23,7 @@ namespace ITEMS
             ItemConfigData result = new ItemConfigData();
             result.name = name;
             result.nameFont = nameFont;
-
+            result.characteristic = characteristic;
             result.nameColor = new Color(nameColor.r, nameColor.g, nameColor.b, nameColor.a);
 
             return result;

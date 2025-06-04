@@ -47,4 +47,46 @@ MonoBehaviour:
     nameColor: {r: 0.51257855, g: 0.6310889, b: 1, a: 1}
     dialogueColor: {r: 0, g: 0, b: 0, a: 1}
     nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
-    dialogueFont: {fileID: 11400000, guid: c50e978c528ff7b4bb4c31b6166294a8, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}
+  - name: "\u519C\u5987"
+    alias: NF
+    characterType: 1
+    nameColor: {r: 0.735849, g: 0.4855895, b: 0.04396568, a: 1}
+    dialogueColor: {r: 0, g: 0, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}
+  - name: "\u5C0F\u6EE1"
+    alias: XM
+    characterType: 1
+    nameColor: {r: 0.8867924, g: 0.7339956, b: 0.27049944, a: 1}
+    dialogueColor: {r: 0, g: 0, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}
+  - name: "\u8001\u836F\u5E08"
+    alias: YU
+    characterType: 1
+    nameColor: {r: 0, g: 0, b: 0, a: 1}
+    dialogueColor: {r: 0, g: 0, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}
+  - name: "\u4F60"
+    alias: NI
+    characterType: 1
+    nameColor: {r: 0, g: 0, b: 0, a: 1}
+    dialogueColor: {r: 0.11575966, g: 0.34591186, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}
+  - name: "\u58EE\u58EB"
+    alias: VU
+    characterType: 1
+    nameColor: {r: 0.4716981, g: 0.41474453, b: 0.32781532, a: 1}
+    dialogueColor: {r: 0, g: 0, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}
+  - name: "\u8001\u59AA"
+    alias: LY
+    characterType: 1
+    nameColor: {r: 0.4716981, g: 0.41474453, b: 0.32781532, a: 1}
+    dialogueColor: {r: 0, g: 0, b: 0, a: 1}
+    nameFont: {fileID: 11400000, guid: 0e53d227f78cec44eb7145d503fe0202, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 94af619874e712c4a94b2850a093b936, type: 2}

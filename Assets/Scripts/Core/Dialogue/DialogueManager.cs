@@ -21,7 +21,6 @@ namespace DIALOGUE
         public void StartDialogue()
         {
             //dialogueLoaderManager.Open();  // 如果说想要startDialogue方法调用后，对话框立即显现，则去掉注释
-
             List<string> lines = FileManager.ReadTextAsset(fileToRead);
 
             DialogueSystem.instance.Say(lines);
@@ -31,7 +30,6 @@ namespace DIALOGUE
         {
             //fileToRead = AssetDatabase.LoadAssetAtPath<TextAsset>(FilePaths.GetPathToResource(FilePaths.resources_gamescript, filename));
             fileToRead = Resources.Load<TextAsset>(FilePaths.GetPathToResource(FilePaths.resources_gamescript, filename));
-            Debug.Log(FilePaths.GetPathToResource(FilePaths.resources_gamescript, filename));
             if (fileToRead == null)
             {
                 Debug.LogError("No file found");

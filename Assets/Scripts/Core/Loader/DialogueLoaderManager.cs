@@ -9,6 +9,7 @@ namespace DIALOGUE
         public static DialogueLoaderManager instance { get; private set; }
 
         public GameObject root;
+        public GameObject dialogueLoader;
         public CanvasGroup rootCG => root.GetComponent<CanvasGroup>();
 
         protected Coroutine co_revealing;
@@ -45,6 +46,14 @@ namespace DIALOGUE
 
             co_closing = StartCoroutine(OpeningOrClosing(false, speedMultiplier));
             return co_closing;
+        }
+
+        public void ResetDialogueLoader()
+        {
+            Destroy(root);
+            GameObject newRoot = Instantiate(root, dialogueLoader.transform);
+
+            root = newRoot;
         }
 
         private IEnumerator OpeningOrClosing(bool show, float speedMultiplier)
