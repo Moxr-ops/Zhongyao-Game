@@ -10,6 +10,7 @@ namespace DIALOGUE
 
         public GameObject root;
         public GameObject dialogueLoader;
+        public GameObject charactersContainer;
         public CanvasGroup rootCG => root.GetComponent<CanvasGroup>();
 
         protected Coroutine co_revealing;
@@ -50,10 +51,15 @@ namespace DIALOGUE
 
         public void ResetDialogueLoader()
         {
-            Destroy(root);
-            GameObject newRoot = Instantiate(root, dialogueLoader.transform);
+            Transform characters = charactersContainer.transform;
 
-            root = newRoot;
+            if (characters != null)
+            {
+                foreach (Transform character in characters)
+                {
+                    Destroy(character);
+                }
+            }
         }
 
         private IEnumerator OpeningOrClosing(bool show, float speedMultiplier)

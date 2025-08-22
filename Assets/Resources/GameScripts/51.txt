@@ -1,0 +1,36 @@
+OpenLoader()
+CreateCharacter(你 -i false -e false)
+CreateCharacter(老药师 -i false -e false)
+CreateCharacter(农妇 -i false -e false)
+MoveCharacter(你 -x 0)
+MoveCharacter(老药师 -x 0.5)
+MoveCharacter(农妇 -x 1)
+FaceRight(你)
+Show(老药师)
+Show(你)
+
+narrator "寒露夜。霜华爬满窗棂，药堂烛火在穿堂风中明灭不定。{a}沉重的脚步声踏碎寂静——"
+Show(农妇)
+
+narrator "农妇怀抱襁褓踉跄而入，婴孩啼哭如利剑出鞘，撕破寒夜。{a}烛光下，小儿指纹青紫透关，额间朱砂痣如血泪凝结。"
+TsSprite(农妇 -l 1 -sp nsfu1)
+
+narrator "老药师惊起，书卷落案声惊起尘埃。"
+老药师 " 夫人，此儿啼声带煞，身若燔炭，究竟遭逢何等惊怖？"
+
+narrator "农妇颤抖着解开染血布衣，朱砂痣在烛光下灼灼如焰。她泣不成声地说。"
+农妇 "大夫救命啊...这孩儿落地就没停过啼哭...这是他爹...出征前亲手点的...说打完仗就回...可如今..."
+
+narrator "烛影摇曳。那年大雪封门，铁甲男子以染血指尖点下朱砂：{a}'待我归时，痣作团圆印'。{a}言犹在耳，战报已至——漠北黄沙埋忠骨，朱砂痣成泣血符。"
+
+narrator "老药师三指搭脉，眉峰如聚。"
+老药师 "身热而脉沉，此乃寒邪直中三阴。惊啼不休，原是父魂未归之痛。"
+
+农妇 "求大夫给条生路！这哭声...快把俺的心哭碎了！"
+
+老药师 "且以四逆汤，化征衣戾气为祥和瑞气。徒儿，取《伤寒杂病论》来！"
+FaceRight(老药师)
+narrator "《伤寒杂病论》明示：“当归四逆汤”需当归三钱、桂枝二钱、白芍二钱、细辛一钱、通草一钱、大枣五枚。"
+
+AddTask(Task5)
+CloseLoader()

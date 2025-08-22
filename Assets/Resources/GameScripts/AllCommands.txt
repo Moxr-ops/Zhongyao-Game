@@ -2,6 +2,9 @@ CreateCharacter
 MoveCharacter
 FaceLeft
 FaceRight
+TsSprite
+Show
+Hide
 
 Wait
 CreateMedicinePot

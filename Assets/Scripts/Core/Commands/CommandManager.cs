@@ -6,8 +6,6 @@ using System.Linq;
 using System;
 using COMMANDS;
 using UnityEngine.Events;
-using System.Diagnostics;
-using static DL_COMMAND_DATA;
 
 namespace DIALOGUE
 {

@@ -68,7 +68,7 @@ public class MainMenuEvents : MonoBehaviour
     private void OnPlayGameClick(ClickEvent evt)
     {
         Debug.Log("Start");
-        SceneLoaderManager.Instance.TransitionToScene("Cloud", 1, 1.5f, StartEvent);
+        SceneLoaderManager.Instance.TransitionToScene("Cloud", 4);
     }
 
     private void StartEvent()

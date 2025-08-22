@@ -1,8 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using CHARACTERS;
 using System.Collections.Generic;
-using UnityEditor;
 
 namespace DIALOGUE
 {

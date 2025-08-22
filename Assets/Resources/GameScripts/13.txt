@@ -29,3 +29,11 @@ Show(你)
 
 老药师 "徒儿啊，这份纯良之心，便正是济世之道也……"
 老药师 "不忘初心，悬壶济世。这就是你我的使命。"
+
+narrator ""
+
+CloseLoader()
+ResetLoader()
+
+Wait(2)
+StartDialogue(-f 21)

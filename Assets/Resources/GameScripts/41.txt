@@ -1,0 +1,41 @@
+OpenLoader()
+CreateCharacter(你 -i false -e false)
+CreateCharacter(老药师 -i false -e false)
+CreateCharacter(小满 -i false -e false)
+MoveCharacter(你 -x 0)
+MoveCharacter(老药师 -x 0.5)
+MoveCharacter(小满 -x 1)
+FaceRight(你)
+Show(老药师)
+Show(你)
+
+narrator "芒种子夜。铜铃碎响如冰玉坠地，药堂烛火在穿堂风中明灭不定。{a}青石阶前忽现瘦小身影——"
+TsSprite(小满 -l 1 -sp xcmj3)
+Show(小满)
+
+narrator "孩童蜷缩如离巢幼兽匍匐而入，怀中紧抱的青团霉斑如泪痕蜿蜒。{a}单薄布衫下腹鼓如鸣蛙，腕间脉象濡缓似梅雨浸透的棉线。"
+
+narrator "师傅急步上前，满眼关切。"
+MoveCharacter(老药师 -x 0.7 -spd 0.6)
+老药师 "孩儿，此腹如鼓，眉间锁愁，可愿与老朽说说这沉重心事？"
+
+narrator "孩童指尖抚过霉斑青团，泪珠砸在青砖上洇开深色圆斑"
+小满 "大夫...这青团...是娘亲闭目前塞进我手里的...她说'艾草青团要配雄黄酒'... "
+narrator "孩儿摸出半枚铜钱。"
+小满 "可爹的半枚铜钱...十年了...还在漠北风沙里飘着..."
+
+narrator "老药师眼中满是悲悯，三指搭与小满脉上。"
+老药师 湿浊困脾，气机壅滞。这腹中鼓鸣原是思亲泪，脉间濡缓尽是未归人。"
+
+小满 "大夫...这病...还能治吗？"
+
+narrator "老药师慈祥的望着小满，微微颔首，轻拍着他的肩背，说道。"
+老药师 "药石虽难愈离殇，或可化开这郁结寒冰。"
+narrator "师傅转身，衣袂翻飞"
+老药师 "徒儿，取乌梅丸方！"
+FaceRight(老药师)
+
+narrator "《伤寒卒病论》有载：乌梅三百枚为君，效骄阳曝晒湿土；细辛六两驱阴寒，干姜十两暖中焦；黄连十六两降心火，黄柏六两清郁热；附子六两回真阳，当归四两养血络；蜀椒四两破寒凝，桂枝六两通经脉；人参六两补元气。{c}诸药相合，可化青团霉斑为艾草清香。"
+
+AddTask(Task4)
+CloseLoader()

@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using CHARACTERS;
 using DIALOGUE;
-using TMPro;
 using UnityEngine;
 
 namespace COMMANDS
@@ -86,7 +85,7 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_XPOS, out x);
             parameters.TryGetValue(PARAM_YPOS, out y);
             parameters.TryGetValue(PARAM_SPEED, out speed, defaultValue: 1);
-            parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: true);
+            parameters.TryGetValue(PARAM_SMOOTH, out smooth, defaultValue: false);
             parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultValue: false);
 
             Vector2 position = new Vector2(x, y);

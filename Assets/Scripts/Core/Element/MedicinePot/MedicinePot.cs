@@ -161,6 +161,7 @@ public class MedicinePot : MonoBehaviour
     private void DestoryThePot()
     {
         CommandManager.instance.Execute("StartDialogue", "-f", OnDestoryScript.ToString());
+        SceneAMenu.Instance.OpenMountain();
         gameObject.SetActive(false);
 
         Destroy(gameObject);

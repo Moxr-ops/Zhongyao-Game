@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using COMMANDS;
@@ -16,7 +15,6 @@ namespace MEDICINE
         private static string[] PARAM_NECESSARY => new string[] { "n", "necessary" };
         private static string[] PARAM_ITEMS => new string[] { "i", "items" };
         private static string[] PARAM_TARGETS => new string[] { "t", "targets" };
-        private static string[] PARAM_IMAGES => new string[] { "img", "images" };
         private static string[] PARAM_POSITION => new string[] { "p", "position" };
         private static string[] PARAM_FILE => new string[] { "f", "file" };
 
@@ -78,6 +76,7 @@ namespace MEDICINE
                 Debug.Log("Creating MedicinePot");
                 Debug.Log(allMedicineToPut.Length);
                 MedicinePotManager.Instance.CreateMedicinePot(targetIndex, allMedicineToPut, position, file);
+                SceneAMenu.Instance.CloseMountain();
             }
             else
             {
